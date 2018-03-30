@@ -91,7 +91,7 @@ public class Signup2 extends Fragment {
                     //UniqueID (First name (3 char), Last Name(3 char), currentYear)
                     //Ex: APATRI2018 (APAn TRIkha 2018)
                     for (int x = info.length-1; i > 0; i--)
-                        str[x + 2] = info[x];
+                        str[((info.length-1) - x) + 2] = info[x];
                     File f = new File(path + "/SRMWEClub/data.dat");
                     Save(f,str);
                     Intent it = new Intent(getContext(), Profile.class);
@@ -136,7 +136,7 @@ public class Signup2 extends Fragment {
         try {
             try {
                 for (int i = 0; i < data.length; i++) {
-                    fos.write(data[i].getBytes());
+                    //fos.write(data[i].getBytes());
                     if (i < data.length - 1) {
                         fos.write("\n".getBytes());
                     }

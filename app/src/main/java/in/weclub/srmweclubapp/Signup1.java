@@ -31,8 +31,8 @@ public class Signup1 extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if((fName.getText().toString() == null)||(lName.getText().toString() == null)||
-                        (email.getText().toString() == null)||(mobNo.getText().toString() == null))
+                if((fName.getText().toString().equals(""))||(lName.getText().toString().equals(""))||
+                        (email.getText().toString().equals(""))||(mobNo.getText().toString().equals("")))
                     Toast.makeText(getActivity(), "Fill all entries", Toast.LENGTH_SHORT).show();
                 else {
                     Fragment f = new Signup2();
