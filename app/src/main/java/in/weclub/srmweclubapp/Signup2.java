@@ -94,7 +94,7 @@ public class Signup2 extends Fragment {
                         str[((info.length-1) - x) + 2] = info[x];
                     File f = new File(path + "/SRMWEClub/data.dat");
                     Save(f,str);
-                    Intent it = new Intent(getContext(), Profile.class);
+                    Intent it = new Intent("in.weclub.srmweclubapp.Profile");
                     startActivity(it);
                 } else if(!uploaded)
                     Toast.makeText(getActivity(), "Image not uploaded.", Toast.LENGTH_SHORT).show();

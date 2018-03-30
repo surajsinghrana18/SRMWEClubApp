@@ -1,6 +1,7 @@
 package in.weclub.srmweclubapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -47,10 +48,13 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SRMWEClub/data.dat");
                 String s[] = LoginActivity.Load(f);
-                if(s[1].equals(mono.getText().toString())&&s[2].equals(pass.getText().toString()))
+                if(s[2].equals(mono.getText().toString())&&s[1].equals(pass.getText().toString())) {
+                    Intent it = new Intent(getActivity(), Profile.class);
+                    startActivity(it);
                     Toast.makeText(getActivity(), "Logging In", Toast.LENGTH_SHORT).show();
+                }
                 else
-                    Toast.makeText(getActivity(), "Logging In", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
             }
         });
 
