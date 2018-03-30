@@ -37,7 +37,7 @@ public class Signup2 extends Fragment {
     private Button prev, reg, upldImg;
     private boolean uploaded;
     private Bitmap tPhoto;
-
+    private String path = Environment.getExternalStorageDirectory().getAbsolutePath();
 
     public Signup2()
     {
@@ -79,22 +79,20 @@ public class Signup2 extends Fragment {
             @Override
             public void onClick(View view) {
                 if (pass.getText().toString().equals(conpass.getText().toString()) && uploaded) {
-                    String str[] = new String[7];
+                    String str[] = new String[6];
                     char[] c = new char[10];
-                    str[1] = pass.getText().toString();
                     info[1].getChars(0, 2, c, 0);
-                    info[0].getChars(0, 2, c, 3);
-                    StringBuffer b = new StringBuffer(new String(c));
+                    info[2].getChars(0, 2, c, 3);
+                    StringBuilder b = new StringBuilder(new String(c));
                     int i = Calendar.getInstance().get(Calendar.YEAR);
                     b.append(i);
                     str[0] = b.toString().toUpperCase();
+                    str[1] = pass.getText().toString();
                     //UniqueID (First name (3 char), Last Name(3 char), currentYear)
                     //Ex: APATRI2018 (APAn TRIkha 2018)
-                    for (int x = info.length; i > 0; i--)
+                    for (int x = info.length-1; i > 0; i--)
                         str[x + 2] = info[x];
-                    File f1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SRMWEClub");
-                    f1.mkdir();
-                    File f = new File(f1.getPath() + "data.dat");
+                    File f = new File(path + "/SRMWEClub/data.dat");
                     Save(f,str);
                     Intent it = new Intent(getContext(), Profile.class);
                     startActivity(it);
@@ -109,8 +107,6 @@ public class Signup2 extends Fragment {
 
     public static void saveImg(Bitmap bmp)
     {
-        File a = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/SRMWEClub");
-        a.mkdir();
         FileOutputStream out = null;
         try {
             out = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SRMWEClub/Profile.png");
@@ -161,7 +157,7 @@ public class Signup2 extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == 1 && null != data) {
+        if (requestCode == 1 && null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
