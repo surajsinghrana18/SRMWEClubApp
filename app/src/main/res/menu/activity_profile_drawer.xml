@@ -3,10 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+    <group >
+        <item
+            android:id="@+id/webLink"
+            android:title="Website Link" />
+    </group>
     <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/upEvents"
+            android:title="Upcoming Events" />
+        <item
+            android:id="@+id/enEvents"
+            android:title="Enrolled Events" />
         <item
             android:id="@+id/partners"
             android:title="Partners" />
+        <item
+            android:id="@+id/profile"
+            android:title="Profile" />
         <item
             android:id="@+id/options"
             android:title="Options" />
