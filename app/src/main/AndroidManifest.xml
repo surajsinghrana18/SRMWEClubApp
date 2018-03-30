@@ -27,13 +27,9 @@
         <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="in.weclub.srmweclubapp.Profile" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".SignUpScroll"></activity>
     </application>
 
 </manifest>

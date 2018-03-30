@@ -28,7 +28,7 @@ public class Signup1 extends Fragment {
         lName = (EditText)v.findViewById(R.id.lName);
         email = (EditText)v.findViewById(R.id.email);
         mobNo = (EditText)v.findViewById(R.id.moNum);
-        next.setOnClickListener(new View.OnClickListener() {
+       /* next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if((fName.getText().toString().equals(""))||(lName.getText().toString().equals(""))||
@@ -46,7 +46,7 @@ public class Signup1 extends Fragment {
                     ft.commit();
                 }
             }
-        });
+        });*/
         return v;
         }
 

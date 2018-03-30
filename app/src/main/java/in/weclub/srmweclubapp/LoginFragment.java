@@ -32,7 +32,7 @@ public class LoginFragment extends Fragment {
         pass = (EditText) v.findViewById(R.id.pass3);
         login = (Button)v.findViewById(R.id.button);
         TextView signup = (TextView)v.findViewById(R.id.signUp);
-        signup.setOnClickListener(new View.OnClickListener() {
+       /* signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Fragment f = new Signup1();
@@ -41,7 +41,7 @@ public class LoginFragment extends Fragment {
                 ft.replace(R.id.loginFragment, f);
                 ft.commit();
             }
-        });
+        });*/
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

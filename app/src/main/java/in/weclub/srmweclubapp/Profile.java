@@ -36,6 +36,8 @@ public class Profile extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        generateInfo();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,8 +49,6 @@ public class Profile extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        generateInfo();
     }
 
     @Override
@@ -106,9 +106,9 @@ public class Profile extends AppCompatActivity
         File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SRMWEClub/data.dat");
         String str[] = LoginActivity.Load(f);
         username.setText(str[0]);
-        TextView validDate = (TextView)findViewById(R.id.ValidDate);
-        String s = "06/2018";
-        validDate.setText("Valid Thru: " + s);
+        //TextView validDate = (TextView)findViewById(R.id.ValidDate);
+        //String s = "06/2018";
+        //validDate.setText("Valid Thru: " + s);
         MultiFormatWriter mfw = new MultiFormatWriter();
         try
         {

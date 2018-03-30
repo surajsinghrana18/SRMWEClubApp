@@ -55,7 +55,7 @@ public class Signup2 extends Fragment {
         prev = (Button) v.findViewById(R.id.prevSignUp);
         reg = (Button) v.findViewById(R.id.reg);
         upldImg = (Button) v.findViewById(R.id.upldImg);
-        prev.setOnClickListener(new View.OnClickListener() {
+        /*prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Fragment f = new Signup1();
@@ -101,7 +101,7 @@ public class Signup2 extends Fragment {
                     else
                         Toast.makeText(getActivity(), "Passwords are different", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
         return v;
     }
 

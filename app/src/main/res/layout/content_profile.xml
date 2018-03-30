@@ -48,11 +48,12 @@
         android:id="@+id/textView3"
         android:layout_width="163dp"
         android:layout_height="34dp"
+        android:layout_marginStart="80dp"
         android:text="Email"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="226dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <RelativeLayout
         android:id="@+id/relLay"
@@ -131,7 +132,6 @@
             android:layout_alignBottom="@+id/memName"
             android:layout_alignEnd="@+id/uid2"
             android:layout_marginEnd="13dp"
-            app:layout_constraintEnd_toStartOf="@+id/relLay"
             app:srcCompat="@color/colorAccent"
             tools:layout_editor_absoluteY="342dp" />
     </RelativeLayout>

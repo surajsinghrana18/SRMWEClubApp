@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,6 +29,9 @@ import java.io.InputStreamReader;
 
 public class LoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private EditText mono, pass;
+    private Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +49,47 @@ public class LoginActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        android.support.v4.app.Fragment f = new LoginFragment();
+        /*android.support.v4.app.Fragment f = new LoginFragment();
         FragmentManager fm = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.loginFragment, f);
-        ft.commit();
+        ft.commit();*/
+        login();
+    }
+
+    public void login()
+    {
+        mono = (EditText) findViewById(R.id.moNo);
+        pass = (EditText) findViewById(R.id.pass3);
+        login = (Button)findViewById(R.id.button);
+        TextView signup = (TextView)findViewById(R.id.signUp);
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               /* android.support.v4.app.Fragment f = new Signup1();
+                FragmentManager fm = getFragmentManager();
+                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.loginFragment, f);
+                ft.commit();*/
+               Intent ot = new Intent(LoginActivity.this, SignUpScroll.class);
+               startActivity(ot);
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SRMWEClub/data.dat");
+                String s[] = Load(f);
+                if(s[1].equals(mono.getText().toString())&&s[2].equals(pass.getText().toString())) {
+                    Intent it = new Intent(LoginActivity.this, Profile.class);
+                    startActivity(it);
+                    Toast.makeText(LoginActivity.this, "Logging In", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
