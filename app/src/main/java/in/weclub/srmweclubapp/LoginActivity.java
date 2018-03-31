@@ -3,6 +3,7 @@ package in.weclub.srmweclubapp;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.NavigationView;
@@ -32,7 +33,8 @@ public class LoginActivity extends AppCompatActivity
 
     private EditText mono, pass;
     private Button login;
-
+    private boolean found;
+    private int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,7 @@ public class LoginActivity extends AppCompatActivity
         android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.loginFragment, f);
         ft.commit();*/
+
         login();
     }
 
@@ -79,15 +82,39 @@ public class LoginActivity extends AppCompatActivity
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SRMWEClub/data.dat");
+                /*File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SRMWEClub/data.dat");
                 String s[] = Load(f);
                 if(s[1].equals(mono.getText().toString())&&s[2].equals(pass.getText().toString())) {
                     Intent it = new Intent(LoginActivity.this, Profile.class);
                     startActivity(it);
                     Toast.makeText(LoginActivity.this, "Logging In", Toast.LENGTH_SHORT).show();
+                }*/
+                found = false; pos = 0;
+                DatabaseHelper dh = new DatabaseHelper(LoginActivity.this);
+                Cursor res = dh.getLogin();
+                if(res.getCount() == 0) {
+                    Toast.makeText(LoginActivity.this, "Empty Database", Toast.LENGTH_SHORT).show();
                 }
-                else
+                else{
+                while(res.moveToNext()&& (!found)) {
+                    if (res.getString(0).equals(mono.getText().toString()) && res.getString(1).equals(pass.getText().toString())) {
+                        Toast.makeText(LoginActivity.this, "Logging In", Toast.LENGTH_SHORT).show();
+                        found = true;
+                    }
+                    else
+                        pos++;
+                }   }
+                if(!found)
+                {
                     Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Bundle b = new Bundle();
+                    b.putInt("Position", pos);
+                    Intent it = new Intent(LoginActivity.this, Profile.class);
+                    it.putExtras(b);
+                    startActivity(it);
+                }
             }
         });
 

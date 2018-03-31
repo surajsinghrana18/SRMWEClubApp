@@ -1,12 +1,9 @@
 package in.weclub.srmweclubapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,20 +21,14 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import java.io.File;
-
 public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ImageView qrCode;
-    private TextView username,t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        generateInfo();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,9 +38,12 @@ public class Profile extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
         navigationView.setNavigationItemSelectedListener(this);
+
+        showData();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -88,31 +82,70 @@ public class Profile extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        android.app.FragmentManager fm = getFragmentManager();
-        if(id == R.id.partners)
+/*
+        switch (id)
         {
-            Intent it = new Intent(Profile.this, Partners.class);
-            startActivity(it);
+            case R.id.partners:
+                Intent it = new Intent(Profile.this, Partners.class);
+                startActivity(it);
+                break;
         }
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    public void generateInfo()
+    public void showData() {
+        DatabaseHelper dh = new DatabaseHelper(Profile.this);
+        Cursor res = dh.getProile();
+        TextView name = findViewById(R.id.nameProf);
+        TextView mobNo = findViewById(R.id.mobNo2);
+        TextView email = findViewById(R.id.email2);
+        TextView Uid = findViewById(R.id.UID);
+        TextView hName = findViewById(R.id.holderName);
+        ImageView qrCode = findViewById(R.id.QRCode2);
+        int p ;
+        try
+        {
+            Bundle b = getIntent().getExtras();
+            p = b.getInt("Position");
+    }catch(Exception ex)
+
     {
-        qrCode = (ImageView)findViewById(R.id.QRCode);
-        username = (TextView)findViewById(R.id.username);
-        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SRMWEClub/data.dat");
-        String str[] = LoginActivity.Load(f);
-        username.setText(str[0]);
-        //TextView validDate = (TextView)findViewById(R.id.ValidDate);
-        //String s = "06/2018";
-        //validDate.setText("Valid Thru: " + s);
+        p = -1;
+    }
+        res.moveToPosition(p);
+        /*while (res.moveToNext()) {
+            if(res.getString(4).equals(it.getStringExtra("MobNo"))){*/
+            String fullName = res.getString(1) + " " + res.getString(2);
+            name.setText(fullName);
+            hName.setText(fullName);
+            Uid.setText(res.getString(0));
+            email.setText(res.getString(3));
+            mobNo.setText(res.getString(4));
+            /*break;
+        }
+        }*/
         MultiFormatWriter mfw = new MultiFormatWriter();
         try
         {
-            BitMatrix bm = mfw.encode(str[0], BarcodeFormat.QR_CODE, 150, 150);
+            BitMatrix bm = mfw.encode(Uid.getText().toString()
+                    , BarcodeFormat.QR_CODE, 200, 200);
             BarcodeEncoder be = new BarcodeEncoder();
             Bitmap i = be.createBitmap(bm);
             qrCode.setImageBitmap(i);

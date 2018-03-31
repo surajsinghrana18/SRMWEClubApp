@@ -26,7 +26,7 @@ public class SignUpScroll extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_scroll);
-        dh = new DatabaseHelper(SignUpScroll.this);
+        dh = new DatabaseHelper(this);
         fName = (EditText)findViewById(R.id.fName);
         lName = (EditText)findViewById(R.id.lName);
         mobNo = (EditText)findViewById(R.id.moNum);
@@ -44,18 +44,24 @@ public class SignUpScroll extends AppCompatActivity {
                     StringBuilder b = new StringBuilder(new String(c));
                     int i = Calendar.getInstance().get(Calendar.YEAR);
                     b.append(i);
-                    String str[] = new String[6];
+                    boolean inserted = dh.insertContact(b.toString(), fName.getText().toString(),
+                            lName.getText().toString(), email.getText().toString(), mobNo.getText().toString(),
+                            pass.getText().toString());
+                    if (inserted)
+                        Toast.makeText(SignUpScroll.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(SignUpScroll.this, "Data not Inserted", Toast.LENGTH_SHORT).show();
+                   /* String str[] = new String[6];
                     str[0] = b.toString();
                     str[1] = mobNo.getText().toString();
                     str[2] = pass.getText().toString();
                     str[3] = fName.getText().toString();
                     str[4] = lName.getText().toString();
                     str[5] = email.getText().toString();
-
                     File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/SRMWEClub/data.dat");
                     Save(f,str);
                     Intent it = new Intent(SignUpScroll.this, Profile.class);
-                    startActivity(it);
+                    startActivity(it);*/
                 }
                 else
                     Toast.makeText(SignUpScroll.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
