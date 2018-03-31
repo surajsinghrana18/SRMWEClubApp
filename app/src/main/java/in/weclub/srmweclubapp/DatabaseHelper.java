@@ -1,5 +1,6 @@
 package in.weclub.srmweclubapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,11 +11,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "contacts.db";
     private static final String TABLE_NAME = "contacts";
     public static final String COLUMN_ID = "id";
-    private static final String COLUMN_FNAME = "fname";
-    private static final String COLUMN_LNAME = "lname";
+    private static final String COLUMN_FNAME = "FirstName";
+    private static final String COLUMN_LNAME = "LastName";
     private static final String COLUMN_EMAIL = "email";
     private static final String COLUMN_MOBNO = "mobNo" ;
-    private static final String COLUMN_PASS = "pass";
+    private static final String COLUMN_PASS = "Password";
     SQLiteDatabase db;
 
     private static final String TABLE_CREATE = "create table contacts (id integer primary key not null  , "+
@@ -27,19 +28,25 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        db.execSQL(TABLE_CREATE);
-        this.db =db;
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("create table " + TABLE_NAME+"(id TEXT PRIMARY KEY, FirstName TEXT, LastName TEXT, email TEXT, mobNo TEXT, pass TEXT)");
+       this.db =db;
     }
 
-    public void insertContact()
-    {}
+    public boolean insertContact(String id, String fName, String LName, String email, int MobNo, String pass)
+    {
+        db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_ID, id); cv.put(COLUMN_FNAME, fName); cv.put(COLUMN_LNAME, LName);
+        cv.put(COLUMN_EMAIL, email); cv.put(COLUMN_MOBNO, MobNo); cv.put(COLUMN_PASS, pass);
+        long res = db.insert(TABLE_NAME, null, cv);
+        return res!=-1;
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         String query = " DROP TABLE IF EXISTS "+TABLE_NAME;
         db.execSQL(query);
         this.onCreate(db);
-
     }
 }

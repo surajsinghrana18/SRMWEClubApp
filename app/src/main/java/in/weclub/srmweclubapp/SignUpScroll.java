@@ -20,11 +20,13 @@ public class SignUpScroll extends AppCompatActivity {
 
     private EditText fName, lName, mobNo, email, pass, conpass;
     private Button reg;
+    DatabaseHelper dh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_scroll);
+        dh = new DatabaseHelper(SignUpScroll.this);
         fName = (EditText)findViewById(R.id.fName);
         lName = (EditText)findViewById(R.id.lName);
         mobNo = (EditText)findViewById(R.id.moNum);
