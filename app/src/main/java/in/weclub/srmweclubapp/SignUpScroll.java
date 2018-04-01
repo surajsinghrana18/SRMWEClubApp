@@ -47,8 +47,11 @@ public class SignUpScroll extends AppCompatActivity {
                     boolean inserted = dh.insertContact(b.toString(), fName.getText().toString(),
                             lName.getText().toString(), email.getText().toString(), mobNo.getText().toString(),
                             pass.getText().toString());
-                    if (inserted)
+                    if (inserted) {
                         Toast.makeText(SignUpScroll.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+                        Intent it = new Intent(SignUpScroll.this, LoginActivity.class);
+                        startActivity(it);
+                    }
                     else
                         Toast.makeText(SignUpScroll.this, "Data not Inserted", Toast.LENGTH_SHORT).show();
                    /* String str[] = new String[6];
