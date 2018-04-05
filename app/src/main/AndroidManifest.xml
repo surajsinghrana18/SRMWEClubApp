@@ -28,6 +28,14 @@
         <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FindPartner"
+            android:label="@string/title_activity_find_partner"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UpcomingEvents"
+            android:label="@string/title_activity_upcoming_events"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
