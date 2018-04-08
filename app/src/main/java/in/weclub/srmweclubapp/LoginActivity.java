@@ -110,10 +110,11 @@ public class LoginActivity extends AppCompatActivity
                     Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Bundle b = new Bundle();
-                    b.putInt("Position", pos);
+                    /*Bundle b = new Bundle();
+                    b.putInt("Position", pos);*/
+                    DataPosition.setPos(pos);
                     Intent it = new Intent(LoginActivity.this, Profile.class);
-                    it.putExtras(b);
+                    //it.putExtras(b);
                     startActivity(it);
                 }
             }

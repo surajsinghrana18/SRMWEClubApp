@@ -101,8 +101,6 @@ public class Profile extends AppCompatActivity
             case R.id.eventsUp:
                 Intent it1 = new Intent(Profile.this, UpcomingEvents.class);
                 startActivity(it1);
-                b = new Bundle();
-                b.putInt("Position", p);
                 break;
         }
 /*
@@ -134,7 +132,7 @@ public class Profile extends AppCompatActivity
         TextView Uid = findViewById(R.id.UID);
         TextView hName = findViewById(R.id.holderName);
         ImageView qrCode = findViewById(R.id.QRCode2);
-        try
+        /*try
         {
             Bundle b = getIntent().getExtras();
             p = b.getInt("Position");
@@ -142,7 +140,8 @@ public class Profile extends AppCompatActivity
 
     {
         p = -1;
-    }
+    }*/
+        p = DataPosition.getPos();
         res.moveToPosition(p);
         /*while (res.moveToNext()) {
             if(res.getString(4).equals(it.getStringExtra("MobNo"))){*/

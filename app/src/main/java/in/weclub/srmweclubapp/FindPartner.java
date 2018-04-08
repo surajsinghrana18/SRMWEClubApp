@@ -33,15 +33,7 @@ public class FindPartner extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        try
-        {
-            Bundle b = getIntent().getExtras();
-            p = b.getInt("Position");
-        }catch(Exception ex)
-
-        {
-            p = -1;
-        }
+        p = DataPosition.getPos();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

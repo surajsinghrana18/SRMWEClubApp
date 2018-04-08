@@ -91,7 +91,7 @@ public class UpcomingEvents extends AppCompatActivity
                 Intent it = new Intent(UpcomingEvents.this, Partners.class);
                 startActivity(it);
                 break;
-            case R.id.webLink2:
+            case R.id.webLink3:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.weclub.in/"));
                 startActivity(browserIntent);
                 break;
