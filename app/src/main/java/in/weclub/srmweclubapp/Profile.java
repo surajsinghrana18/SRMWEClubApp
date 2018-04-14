@@ -157,30 +157,32 @@ public class Profile extends AppCompatActivity
             Uid.setText(res.getString(0));
             email.setText(res.getString(3));
             mobNo.setText(res.getString(4));
-            /*break;
+            break;
         }
-        }
+        }*/
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Contact c = dataSnapshot.child(user.getUid()).getValue(Contact.class);
-                String s = c.getFname() + c.getLname();
+                String f = dataSnapshot.child(user.getUid()).child("First Name: ").getValue(String.class);
+                String l = dataSnapshot.child(user.getUid()).child("Last Name: ").getValue(String.class);
+                String s = f+" "+l;
+                String m = dataSnapshot.child(user.getUid()).child("Mobile number: ").getValue(String.class);
+                String uid = dataSnapshot.child(user.getUid()).child("UID: ").getValue(String.class);
                 TextView name = findViewById(R.id.nameProf);
                 TextView mobNo = findViewById(R.id.mobNo2);
                 TextView Uid = findViewById(R.id.UID);
                 TextView hName = findViewById(R.id.holderName);
-                name.setText(s); mobNo.setText(c.getMobNo());
-                hName.setText(s); Uid.setText(c.getUID());
-                Contact.setid(c.getUID());
+                name.setText(s); mobNo.setText(m);
+                hName.setText(s); Uid.setText(uid);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });*/
+        });
         if(user != null)
         {
           email.setText(user.getEmail());

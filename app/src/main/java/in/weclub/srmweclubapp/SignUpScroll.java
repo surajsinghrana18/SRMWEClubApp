@@ -63,9 +63,9 @@ public class SignUpScroll extends AppCompatActivity {
                     int i = Calendar.getInstance().get(Calendar.YEAR) + (int)(Math.random()*10000);
                     b.append(i);
                     final String f1 = b.toString();
-                    String f = fName.getText().toString();
-                    String l = lName.getText().toString();
-                    String m = mobNo.getText().toString();
+                    final String f = fName.getText().toString().trim();
+                    final String l = lName.getText().toString().trim();
+                    final String m = mobNo.getText().toString().trim();
                     /*boolean inserted = dh.insertContact(b.toString(), fName.getText().toString(),
                             lName.getText().toString(), email.getText().toString(), mobNo.getText().toString(),
                             pass.getText().toString());
@@ -90,7 +90,7 @@ public class SignUpScroll extends AppCompatActivity {
                     startActivity(it);*/
                     final FirebaseDatabase database = FirebaseDatabase.getInstance();
                     final DatabaseReference ref = database.getReference("Users");
-                    final Contact contact = new Contact(f1, m, f, l);
+                    //final Contact contact = new Contact(m, f, l);
                     /*Intent it = new Intent(SignUpScroll.this, LoginActivity1.class);
                     startActivity(it);*/
                     final ProgressDialog progressDialog = ProgressDialog.show(SignUpScroll.this, "Please wait...", "Processing...", true);
@@ -100,7 +100,12 @@ public class SignUpScroll extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressDialog.dismiss();
                                     if (task.isSuccessful()) {
-                                        //ref.child(ref.getKey().toLowerCase()).setValue(contact);
+                                        String id = firebaseAuth.getCurrentUser().getUid();
+                                        DatabaseReference d = ref.child(id);
+                                        d.child("First Name: ").setValue(f);
+                                        d.child("Last Name: ").setValue(l);
+                                        d.child("Mobile number: ").setValue(m);
+                                        d.child("UID: ").setValue(f1);
                                         Toast.makeText(SignUpScroll.this, "Registration successful", Toast.LENGTH_LONG).show();
                                         Intent i = new Intent(SignUpScroll.this, Profile.class);
                                         startActivity(i);
