@@ -1,8 +1,26 @@
 package in.weclub.srmweclubapp;
+import com.google.firebase.database.IgnoreExtraProperties;
 
+@IgnoreExtraProperties
 public class Contact {
-    int mobNo;
-    String fname,lname,email,pass;
+    private String fname,lname, UID, mobNo;
+    private static String Uid;
+    Contact(String uid, String m, String fn, String ln)
+    {
+        UID = uid;
+        mobNo = m;
+        fname = fn;
+        lname = ln;
+    }
+
+    Contact(String m, String fn, String ln)
+    {
+        mobNo = m;
+        fname = fn;
+        lname = ln;
+    }
+
+
     public void setFname(String fname){
         this.fname = fname;
     }
@@ -15,22 +33,13 @@ public class Contact {
     public String getLname(){
         return (this.lname);
     }
-    public void setEmail(String email){
-        this.email = email;
-    }
-    public String getEmail(){
-        return (this.email);
-    }
-    public void setPass(String pass){
-        this.pass = pass;
-    }
-    public String getPass(){
-        return (this.pass);
-    }
-    public void getMobno(int mobno){
+    public void setMobno(String mobno){
         this.mobNo = mobno;
     }
-    public int getMobNo(){
-        return(this.mobNo);
+    public String getMobNo(){
+        return mobNo;
     }
+    public String getUID() {return UID;}
+    public static void setid(String s) {Uid = s;}
+    public static String getid() {return Uid;}
 }

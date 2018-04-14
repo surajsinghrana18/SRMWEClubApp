@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "911051573544",
+    "firebase_url": "https://srmwe-club.firebaseio.com",
+    "project_id": "srmwe-club",
+    "storage_bucket": "srmwe-club.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911051573544:android:8a688285e07b0db5",
+        "android_client_info": {
+          "package_name": "in.weclub.srmweclubapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911051573544-0sem9tlp9gmunlqi04mio9ll5skjm8l3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnSAi8f5wFmP87aN4wNCzCGXJzO2z9mjU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

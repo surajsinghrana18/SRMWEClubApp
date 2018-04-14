@@ -1,19 +1,17 @@
 package in.weclub.srmweclubapp;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +19,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,10 +35,11 @@ import java.io.InputStreamReader;
 public class LoginActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private EditText mono, pass;
+    private EditText email, pass;
     private Button login;
     private boolean found;
     private int pos;
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +67,7 @@ public class LoginActivity extends AppCompatActivity
 
     public void login()
     {
-        mono = (EditText) findViewById(R.id.moNo);
+        email = (EditText) findViewById(R.id.moNo);
         pass = (EditText) findViewById(R.id.pass3);
         login = (Button)findViewById(R.id.button);
         TextView signup = (TextView)findViewById(R.id.signUp);
@@ -89,7 +93,7 @@ public class LoginActivity extends AppCompatActivity
                     Intent it = new Intent(LoginActivity.this, Profile.class);
                     startActivity(it);
                     Toast.makeText(LoginActivity.this, "Logging In", Toast.LENGTH_SHORT).show();
-                }*/
+                }
                 found = false; pos = 0;
                 DatabaseHelper dh = new DatabaseHelper(LoginActivity.this);
                 Cursor res = dh.getLogin();
@@ -111,12 +115,33 @@ public class LoginActivity extends AppCompatActivity
                 }
                 else {
                     /*Bundle b = new Bundle();
-                    b.putInt("Position", pos);*/
+                    b.putInt("Position", pos);
                     DataPosition.setPos(pos);
                     Intent it = new Intent(LoginActivity.this, Profile.class);
                     //it.putExtras(b);
                     startActivity(it);
-                }
+                }*/
+                firebaseAuth = FirebaseAuth.getInstance();
+                final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait...", "Processing...", true);
+                (firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString()))
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressDialog.dismiss();
+
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(LoginActivity.this, "Registration successful", Toast.LENGTH_LONG).show();
+                                    //DataPosition.set_Email(email.getText().toString());
+                                    Intent i = new Intent(LoginActivity.this, Profile.class);
+                                    startActivity(i);
+                                }
+                                else
+                                {
+                                    Log.e("ERROR", task.getException().toString());
+                                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
             }
         });
 
@@ -214,4 +239,5 @@ public class LoginActivity extends AppCompatActivity
         catch (IOException e) {e.printStackTrace();}
         return array;
     }
+
 }

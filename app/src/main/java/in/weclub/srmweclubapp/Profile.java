@@ -16,6 +16,14 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -26,7 +34,8 @@ public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private int p;
-
+    private FirebaseUser user;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +53,7 @@ public class Profile extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
         navigationView.setNavigationItemSelectedListener(this);
 
+        user = auth.getCurrentUser();
         showData();
     }
 
@@ -54,6 +64,7 @@ public class Profile extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            auth.signOut();
             super.onBackPressed();
         }
     }
@@ -124,13 +135,8 @@ public class Profile extends AppCompatActivity
     }
 
     public void showData() {
-        DatabaseHelper dh = new DatabaseHelper(Profile.this);
-        Cursor res = dh.getProile();
-        TextView name = findViewById(R.id.nameProf);
-        TextView mobNo = findViewById(R.id.mobNo2);
+        //DatabaseHelper dh = new DatabaseHelper(Profile.this);
         TextView email = findViewById(R.id.email2);
-        TextView Uid = findViewById(R.id.UID);
-        TextView hName = findViewById(R.id.holderName);
         ImageView qrCode = findViewById(R.id.QRCode2);
         /*try
         {
@@ -140,11 +146,11 @@ public class Profile extends AppCompatActivity
 
     {
         p = -1;
-    }*/
+    }
         p = DataPosition.getPos();
         res.moveToPosition(p);
         /*while (res.moveToNext()) {
-            if(res.getString(4).equals(it.getStringExtra("MobNo"))){*/
+            if(res.getString(4).equals(it.getStringExtra("MobNo"))){
             String fullName = res.getString(1) + " " + res.getString(2);
             name.setText(fullName);
             hName.setText(fullName);
@@ -153,11 +159,38 @@ public class Profile extends AppCompatActivity
             mobNo.setText(res.getString(4));
             /*break;
         }
-        }*/
+        }
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Users");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Contact c = dataSnapshot.child(user.getUid()).getValue(Contact.class);
+                String s = c.getFname() + c.getLname();
+                TextView name = findViewById(R.id.nameProf);
+                TextView mobNo = findViewById(R.id.mobNo2);
+                TextView Uid = findViewById(R.id.UID);
+                TextView hName = findViewById(R.id.holderName);
+                name.setText(s); mobNo.setText(c.getMobNo());
+                hName.setText(s); Uid.setText(c.getUID());
+                Contact.setid(c.getUID());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+        if(user != null)
+        {
+          email.setText(user.getEmail());
+        }
+        else
+            startActivity(new Intent(Profile.this, LoginActivity.class));
         MultiFormatWriter mfw = new MultiFormatWriter();
         try
         {
-            BitMatrix bm = mfw.encode(Uid.getText().toString()
+            BitMatrix bm = mfw.encode(user.getUid()
                     , BarcodeFormat.QR_CODE, 200, 200);
             BarcodeEncoder be = new BarcodeEncoder();
             Bitmap i = be.createBitmap(bm);
@@ -167,5 +200,10 @@ public class Profile extends AppCompatActivity
         {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
