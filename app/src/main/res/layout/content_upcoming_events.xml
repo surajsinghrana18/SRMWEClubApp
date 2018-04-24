@@ -8,15 +8,8 @@
     tools:context="in.weclub.srmweclubapp.UpcomingEvents"
     tools:showIn="@layout/app_bar_upcoming_events">
 
-    <TextView
-        android:id="@+id/msg2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="236dp"
-        android:text="Work in Progress..."
-        android:textAlignment="center"
-        android:textSize="28sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/eventRec"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

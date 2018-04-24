@@ -161,6 +161,7 @@ public class Profile extends AppCompatActivity
         }
         }*/
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //DatabaseReference ref = database.getReference("Users");
         DatabaseReference ref = database.getReference("Users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override

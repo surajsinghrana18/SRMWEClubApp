@@ -3,8 +3,11 @@ package in.weclub.srmweclubapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,11 +17,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class UpcomingEvents extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private int p;
+    private RecyclerView rView;
+    private RecyclerView.Adapter rA;
+    private RecyclerView.LayoutManager rLM;
+    private List<EventInfo> infoList = new ArrayList<>();
+    private EventAdapter ea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +46,10 @@ public class UpcomingEvents extends AppCompatActivity
         setContentView(R.layout.activity_upcoming_events);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        try
+        rView= (RecyclerView)findViewById(R.id.eventRec);
+        rLM = new LinearLayoutManager(this);
+        rView.setLayoutManager(rLM);
+        /*try
         {
             Bundle b = getIntent().getExtras();
             p = b.getInt("Position");
@@ -35,7 +57,8 @@ public class UpcomingEvents extends AppCompatActivity
 
         {
             p = -1;
-        }
+        }*/
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -44,6 +67,32 @@ public class UpcomingEvents extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ea = new EventAdapter(infoList);
+        rView.setAdapter(ea);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Event");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String name = ds.child(ds.getKey()).child("Event Name").getValue(String.class);
+                    String spk = ds.child(ds.getKey()).child("Speaker").getValue(String.class);
+                    String date = ds.child(ds.getKey()).child("Date").getValue(String.class);
+                    String time = ds.child(ds.getKey()).child("Time").getValue(String.class);
+                    String venue = ds.child(ds.getKey()).child("Venue").getValue(String.class);
+                    infoList.add(new EventInfo(name, spk, date, time, venue, ds.getKey()));
+                    ea.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //infoList.add(new EventInfo("Java Workshop", "Apan Trikha", "10:00 AM", "Computer Lab 6","EV1001"));
     }
 
     @Override
