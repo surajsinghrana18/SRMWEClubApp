@@ -6,12 +6,19 @@ package in.weclub.srmweclubapp;
 
 public class EventInfo {
 
-    private String eventName, speaker, time, venue, evID;
-    public String retName() {return eventName; }
-    public String retSpkr() {return speaker; }
-    public String retTime() {return time; }
-    public String retVen() { return venue; }
-    public String retID() {return evID;}
+    private String eventName, speaker, time, venue, evID, date;
+
+    public EventInfo(String name, String spkr, String date, String time, String ven , String ID)
+    {
+        eventName = name; speaker = spkr; this.time = time; venue = ven; evID = ID; this.date = date;
+    }
+
+    public String getName() {return eventName; }
+    public String getSpeaker() {return speaker; }
+    public String getTime() {return time; }
+    public String getVenue() { return venue; }
+    public String getEvID() {return evID;}
+    public String getDate() {return date;}
 
     public void setInfo(String name, String spkr, String time, String ven , String ID)
     {
