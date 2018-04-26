@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,7 +69,7 @@ public class UpcomingEvents extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ea = new EventAdapter(infoList);
+        ea = new EventAdapter(this,infoList);
         rView.setAdapter(ea);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -77,11 +78,11 @@ public class UpcomingEvents extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String name = ds.child(ds.getKey()).child("Event Name").getValue(String.class);
-                    String spk = ds.child(ds.getKey()).child("Speaker").getValue(String.class);
-                    String date = ds.child(ds.getKey()).child("Date").getValue(String.class);
-                    String time = ds.child(ds.getKey()).child("Time").getValue(String.class);
-                    String venue = ds.child(ds.getKey()).child("Venue").getValue(String.class);
+                    String name = ds.child("Event Name").getValue(String.class);
+                    String spk = ds.child("Speaker").getValue(String.class);
+                    String date = ds.child("Date").getValue(String.class);
+                    String time = ds.child("Time").getValue(String.class);
+                    String venue = ds.child("Venue").getValue(String.class);
                     infoList.add(new EventInfo(name, spk, date, time, venue, ds.getKey()));
                     ea.notifyDataSetChanged();
                 }
