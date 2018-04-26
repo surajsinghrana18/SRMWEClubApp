@@ -6,6 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -21,6 +27,7 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
+
         public TextView eventName, speaker, t, venue ,date;
         public ViewHolder(View v) {
             super(v);
@@ -40,6 +47,17 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
     public EventAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_layout, parent, false);
         return new ViewHolder(v);
+
+
+
+
+
+
+
+
+
+
+
     }
 
     @Override
