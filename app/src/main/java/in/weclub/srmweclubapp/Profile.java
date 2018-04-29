@@ -1,5 +1,6 @@
 package in.weclub.srmweclubapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -9,8 +10,10 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -64,8 +67,21 @@ public class Profile extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            auth.signOut();
-            super.onBackPressed();
+            AlertDialog.Builder a = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
+            a.setTitle(Html.fromHtml("<font color='#000000'>Logout</font>"));
+            a.setMessage(Html.fromHtml("<font color='#0000000'>Are you sure you want to Logout?</font>")).setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    auth.signOut();
+                    startActivity(new Intent(Profile.this, LoginActivity1.class));
+                }
+            }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            }).show();
+            //super.onBackPressed();
         }
     }
 
@@ -204,6 +220,7 @@ public class Profile extends AppCompatActivity
             e.printStackTrace();
         }
     }
+
 
     @Override
     protected void onDestroy() {
