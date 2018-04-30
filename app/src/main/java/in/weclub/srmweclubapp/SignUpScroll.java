@@ -106,7 +106,7 @@ public class SignUpScroll extends AppCompatActivity {
                                         d.child("Last Name: ").setValue(l);
                                         d.child("Mobile number: ").setValue(m);
                                         d.child("UID: ").setValue(f1);
-                                        Toast.makeText(SignUpScroll.this, "Registration successful", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUpScroll.this, "Login successful", Toast.LENGTH_LONG).show();
                                         Intent i = new Intent(SignUpScroll.this, Profile.class);
                                         startActivity(i);
                                     }
