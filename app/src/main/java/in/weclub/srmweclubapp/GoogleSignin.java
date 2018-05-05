@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class GoogleSignin extends AppCompatActivity {
+public class GoogleSignin extends LoginActivity1  {
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -35,11 +35,20 @@ public class GoogleSignin extends AppCompatActivity {
 
     SignInButton signInButton;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login1);
         //configuring google-signin
         //strating initializing auth
+
+        mAuth = FirebaseAuth.getInstance();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        //ending config sign-in
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
@@ -50,14 +59,6 @@ public class GoogleSignin extends AppCompatActivity {
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        //ending config sign-in
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        mAuth = FirebaseAuth.getInstance();
-
     }
 
     protected void onStart(Bundle savedInstances) {
@@ -103,11 +104,11 @@ public class GoogleSignin extends AppCompatActivity {
                             Intent i = new Intent(getApplicationContext(),Profile.class);
                             startActivity(i);
                             finish();
-                            Toast.makeText(getApplicationContext(),"User logged in Succesfully",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(GoogleSignin.this,"User logged in Succesfully",Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getApplicationContext(),"Failed to log in",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(GoogleSignin.this,"Failed to log in",Toast.LENGTH_SHORT).show();
 
                         }
 

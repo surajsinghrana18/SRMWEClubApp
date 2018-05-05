@@ -25,11 +25,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
+
+
+
 public class LoginActivity1 extends AppCompatActivity {
 
     private EditText email, pass;
     private Button login;
     private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,3 +96,5 @@ public class LoginActivity1 extends AppCompatActivity {
         super.onDestroy();
     }
 }
+
+
