@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.weclub.srmweclubapp.LoginActivity1"
-    android:background="@color/colorAccent"
-    >
+    android:background="@drawable/app_background"
+    tools:context="in.weclub.srmweclubapp.LoginActivity1">
 
     <ImageView
         android:id="@+id/logo2"
@@ -14,7 +13,7 @@
         android:layout_height="160dp"
         android:layout_marginStart="112dp"
         android:layout_marginTop="52dp"
-        android:src="@mipmap/ic_launcher_foreground"
+        android:src="@drawable/splash_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +25,9 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Password"
+        android:textColorHint="@color/cardview_light_background"
         android:inputType="textPassword"
+        android:textColor="@color/cardview_light_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/moNo" />
 
@@ -81,7 +82,7 @@
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="120dp"
         android:text="Sign Up"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/text1"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -92,9 +93,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
         android:layout_marginTop="20dp"
+        android:textColorHint="@color/cardview_light_background"
         android:ems="10"
         android:hint="E mail"
         android:inputType="textEmailAddress"
+        android:textColor="@color/cardview_light_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo2" />
 

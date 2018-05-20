@@ -17,9 +17,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,6 +85,10 @@ public class UpcomingEvents extends AppCompatActivity
                     String date = ds.child("Date").getValue(String.class);
                     String time = ds.child("Time").getValue(String.class);
                     String venue = ds.child("Venue").getValue(String.class);
+                    String url = ds.child("Image").getValue(String.class);
+
+                    ImageView img = (ImageView) findViewById(R.id.imageView3);
+                    Glide.with(UpcomingEvents.this).load(url).into(img);
                     infoList.add(new EventInfo(name, spk, date, time, venue, ds.getKey()));
                     ea.notifyDataSetChanged();
                 }

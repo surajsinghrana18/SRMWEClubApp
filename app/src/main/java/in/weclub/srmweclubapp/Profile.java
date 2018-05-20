@@ -152,7 +152,7 @@ public class Profile extends AppCompatActivity
 
     public void showData() {
         //DatabaseHelper dh = new DatabaseHelper(Profile.this);
-        TextView email = findViewById(R.id.email2);
+        //TextView email = findViewById(R.id.email2);
         ImageView qrCode = findViewById(R.id.QRCode2);
         /*try
         {
@@ -185,13 +185,13 @@ public class Profile extends AppCompatActivity
                 String f = dataSnapshot.child(user.getUid()).child("First Name: ").getValue(String.class);
                 String l = dataSnapshot.child(user.getUid()).child("Last Name: ").getValue(String.class);
                 String s = f+" "+l;
-                String m = dataSnapshot.child(user.getUid()).child("Mobile number: ").getValue(String.class);
+                //String m = dataSnapshot.child(user.getUid()).child("Mobile number: ").getValue(String.class);
                 String uid = dataSnapshot.child(user.getUid()).child("UID: ").getValue(String.class);
-                TextView name = findViewById(R.id.nameProf);
-                TextView mobNo = findViewById(R.id.mobNo2);
+                //TextView name = findViewById(R.id.nameProf);
+                //TextView mobNo = findViewById(R.id.mobNo2);
                 TextView Uid = findViewById(R.id.UID);
                 TextView hName = findViewById(R.id.holderName);
-                name.setText(s); mobNo.setText(m);
+                //name.setText(s); mobNo.setText(m);
                 hName.setText(s); Uid.setText(uid);
             }
 
@@ -200,12 +200,12 @@ public class Profile extends AppCompatActivity
 
             }
         });
-        if(user != null)
+        /*if(user != null)
         {
           email.setText(user.getEmail());
         }
         else
-            startActivity(new Intent(Profile.this, LoginActivity.class));
+            startActivity(new Intent(Profile.this, LoginActivity.class));*/
         MultiFormatWriter mfw = new MultiFormatWriter();
         try
         {
