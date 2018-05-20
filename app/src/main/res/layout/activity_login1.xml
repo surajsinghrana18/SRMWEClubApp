@@ -8,24 +8,69 @@
     tools:context="in.weclub.srmweclubapp.LoginActivity1">
 
     <Button
-        android:id="@+id/button5"
-        android:layout_width="145dp"
-        android:layout_height="3dp"
-        android:layout_marginEnd="28dp"
+        android:id="@+id/button6"
+        android:layout_width="136dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:background="@android:color/white"
         android:backgroundTint="@android:color/white"
         android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="136dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.911"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="136dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/logo2"
         android:layout_width="126dp"
         android:layout_height="105dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/splash_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,14 +79,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginEnd="68dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/montserrat_bold"
-        android:textAlignment="viewStart"
+        android:text="WE"
+        android:textAlignment="viewEnd"
         android:textColor="#ffffff"
         android:textSize="72.7sp"
         android:typeface="normal"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="WE" />
 
@@ -70,6 +116,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/button_ui"
         android:text="Login"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -80,12 +127,12 @@
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="191dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="84dp"
+        android:layout_width="139dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="88dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/makeroundgooglesignin_ui"
+        android:background="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -112,7 +159,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:layout_marginEnd="92dp"
+        android:layout_marginEnd="72dp"
         android:text="Sign Up"
         android:textColor="@android:color/white"
         android:textSize="16sp"
@@ -137,18 +184,21 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="145dp"
-        android:layout_height="3dp"
-        android:layout_marginEnd="40dp"
+        android:layout_width="136dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:background="@android:color/white"
         android:backgroundTint="@android:color/white"
         android:text="Button"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="0.911"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView5"
