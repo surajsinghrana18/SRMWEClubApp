@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,7 +47,8 @@ public class UpcomingEvents extends AppCompatActivity
     private RecyclerView.LayoutManager rLM;
     private List<EventInfo> infoList = new ArrayList<>();
     private EventAdapter ea;
-    //private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private boolean en;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +93,26 @@ public class UpcomingEvents extends AppCompatActivity
                     String time = ds.child("Time").getValue(String.class);
                     String venue = ds.child("Venue").getValue(String.class);
                     String url = ds.child("Image").getValue(String.class);
-                    infoList.add(new EventInfo(name, spk, date, time, venue, url, ds.getKey()));
+                    final String id = ds.getKey();
+                    DatabaseReference ref1 = database.getReference("Users");
+                    ref1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            FirebaseUser u = auth.getCurrentUser();
+                            String g = dataSnapshot.child(u.getUid()).child("Registered Events").child(id)
+                                    .getValue(String.class);
+                            if (g != null)
+                                setEn(g.equals("Registered"));
+                            else
+                                setEn(false);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    infoList.add(new EventInfo(name, spk, date, time, venue, url, id , en));
                     ea.notifyDataSetChanged();
                 }
             }
@@ -101,7 +122,58 @@ public class UpcomingEvents extends AppCompatActivity
 
             }
         });
+
         //infoList.add(new EventInfo("Java Workshop", "Apan Trikha", "10:00 AM", "Computer Lab 6","EV1001"));
+    }
+
+    private void setEn(boolean b){
+        en = b;
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Event");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    DatabaseReference ref1 = database.getReference("Users");
+                    final String id = ds.getKey();
+                    ref1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            FirebaseUser u = auth.getCurrentUser();
+                            String g = dataSnapshot.child(u.getUid()).child("Registered Events").child(id)
+                                    .getValue(String.class);
+                            if (g != null) {
+                                for (EventInfo i : infoList) {
+                                    if (i.getEvID().equals(g))
+                                        i.setEnrolled(true);
+                                    else
+                                        i.setEnrolled(false);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    ea.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        ea.notifyDataSetChanged();
+        rView.setAdapter(ea);
     }
 
     @Override
