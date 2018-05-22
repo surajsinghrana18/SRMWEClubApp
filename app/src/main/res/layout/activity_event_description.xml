@@ -53,10 +53,10 @@
         android:layout_marginStart="136dp"
         android:background="@color/colorPrimary"
         android:text="Register"
+        android:textColor="@color/cardview_light_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
 
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView4"

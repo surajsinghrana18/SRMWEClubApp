@@ -6,12 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ChildEventListener;
@@ -40,6 +42,7 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
         // each data item is just a string in this case
 
         public TextView eventName, speaker, t, venue ,date;
+        public ImageView img;
         public RelativeLayout parentLayout;
         public ViewHolder(View v) {
             super(v);
@@ -48,6 +51,7 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
             t = (TextView) v.findViewById(R.id.eventTime);
             venue = (TextView) v.findViewById(R.id.venue);
             date = (TextView) v.findViewById(R.id.date);
+            img = (ImageView) v.findViewById(R.id.imageView3);
             parentLayout = v.findViewById(R.id.parentLayout);
         }
     }
@@ -61,17 +65,6 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
     public EventAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_layout, parent, false);
         return new ViewHolder(v);
-
-
-
-
-
-
-
-
-
-
-
     }
 
     @Override
@@ -82,6 +75,7 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
         holder.date.setText(String.format("Date: %s", info.getDate()));
         holder.t.setText(String.format("Time: %s", info.getTime()));
         holder.venue.setText(String.format("Venue: %s", info.getVenue()));
+        Glide.with(context).load(info.getImg()).into(holder.img);
         final String s = info.getEvID();
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {

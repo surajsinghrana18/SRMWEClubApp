@@ -22,12 +22,13 @@ public class EventInfo {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabase;
-    private String eventName, speaker, time, venue, evID, date;
+    private String eventName, speaker, time, venue, evID, date, img;
 
-    public EventInfo(String name, String spkr, String date, String time, String ven, String ID) {
+    public EventInfo(String name, String spkr, String date, String time, String ven, String img, String ID) {
         eventName = name;
         speaker = spkr;
         this.time = time;
+        this.img = img;
         venue = ven;
         evID = ID;
         this.date = date;
@@ -61,6 +62,8 @@ public class EventInfo {
     public String getDate() {
         return date;
     }
+
+    public String getImg() { return img; }
 
     public void setInfo(String name, String spkr, String time, String ven, String ID) {
         eventName = name;

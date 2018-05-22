@@ -3,27 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parentLayout"
     android:layout_width="match_parent"
-    android:layout_height="180dp">
+    android:layout_height="280dp">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="270dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        card_view:cardCornerRadius="10dp">
+        card_view:cardBackgroundColor="@color/cardview_light_background"
+        card_view:cardCornerRadius="15dp">
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            app:srcCompat="@color/cardview_light_background" />
+            android:layout_height="110dp"
+            app:srcCompat="@color/cardview_light_background"
+            card_view:srcCompat="@drawable/app_background" />
 
         <TextView
             android:id="@+id/eventName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="100dp"
+            android:paddingTop="120dp"
             android:text="event"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -32,7 +34,7 @@
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="170dp"
+            android:paddingTop="150dp"
             android:text="date"
             android:textSize="20sp" />
 
@@ -40,7 +42,7 @@
             android:id="@+id/speaker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="190dp"
+            android:paddingTop="170dp"
             android:text="spk"
             android:textSize="20sp" />
 
@@ -48,7 +50,7 @@
             android:id="@+id/eventTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="210dp"
+            android:paddingTop="190dp"
             android:text="time"
             android:textSize="20sp" />
 
@@ -58,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignStart="@id/card_view"
-            android:paddingTop="230dp"
+            android:paddingTop="210dp"
             android:text="venue"
             android:textSize="25sp" />
 

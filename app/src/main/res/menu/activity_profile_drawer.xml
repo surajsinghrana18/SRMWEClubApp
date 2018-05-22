@@ -5,14 +5,17 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/eventsUp"
+            android:title="Upcoming Events" />
+        <item
             android:id="@+id/partners"
-            android:title="Partners" />
+            android:title="Vendors" />
+        <item
+            android:id="@+id/enrolled2"
+            android:title="Enrolled Events" />
         <item
             android:id="@+id/webLink2"
             android:title="Go to our website" />
-        <item
-            android:id="@+id/eventsUp"
-            android:title="Upcoming Events" />
     </group>
 
     <item android:title="Communicate">
