@@ -22,7 +22,6 @@
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="110dp"
-            app:srcCompat="@color/cardview_light_background"
             card_view:srcCompat="@drawable/app_background" />
 
         <TextView

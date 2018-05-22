@@ -30,8 +30,12 @@
             android:layout_marginBottom="26dp"
             android:layout_marginStart="18dp"
             android:text="TextView"
+<<<<<<< HEAD
 
             android:textColor="@color/cardview_light_background"
+=======
+            android:textColor="@android:color/white"
+>>>>>>> upstream/master
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -42,7 +46,11 @@
             android:layout_above="@+id/holderName"
             android:layout_alignStart="@+id/holderName"
             android:text="TextView"
+<<<<<<< HEAD
             android:textColor="@color/cardview_light_background"
+=======
+            android:textColor="@android:color/white"
+>>>>>>> upstream/master
             android:textSize="20sp"
             android:textStyle="bold" />
 
