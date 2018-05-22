@@ -20,8 +20,6 @@ import java.util.Date;
 
 public class EventInfo {
 
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDatabase;
     private String eventName, speaker, time, venue, evID, date, img;
 
     public EventInfo(String name, String spkr, String date, String time, String ven, String img, String ID) {
@@ -34,10 +32,6 @@ public class EventInfo {
         this.date = date;
     }
 
-
-    protected void OnCreate(Bundle savedInstancesState) {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Event");
-    }
 
     public String getName() {
         return eventName;
@@ -72,48 +66,5 @@ public class EventInfo {
         venue = ven;
         evID = ID;
     }
-
-    public void onStart() {
-        ValueEventListener eListner = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataSnapshot.getValue(EventAdapter.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("loadPost:onCancelled", databaseError.toException());
-
-            }
-        };
-
-    }
-    ChildEventListener childEventListner = new ChildEventListener() {
-        @Override
-        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                dataSnapshot.getValue(EventAdapter.class);
-        }
-
-        @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            dataSnapshot.getValue(EventAdapter.class);
-        }
-
-        @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-            dataSnapshot.getKey();
-        }
-
-        @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-
-    };
 
 }
