@@ -21,8 +21,10 @@ import java.util.Date;
 public class EventInfo {
 
     private String eventName, speaker, time, venue, evID, date, img;
+    private boolean enrolled;
 
-    public EventInfo(String name, String spkr, String date, String time, String ven, String img, String ID) {
+    public EventInfo(String name, String spkr, String date, String time, String ven, String img,
+                     String ID, boolean en) {
         eventName = name;
         speaker = spkr;
         this.time = time;
@@ -30,6 +32,7 @@ public class EventInfo {
         venue = ven;
         evID = ID;
         this.date = date;
+        enrolled = en;
     }
 
 
@@ -58,6 +61,10 @@ public class EventInfo {
     }
 
     public String getImg() { return img; }
+
+    public boolean getEnrolled() { return enrolled; }
+
+    public void setEnrolled (boolean t) {enrolled = t; }
 
     public void setInfo(String name, String spkr, String time, String ven, String ID) {
         eventName = name;

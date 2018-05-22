@@ -31,9 +31,13 @@
             android:layout_marginStart="18dp"
             android:text="TextView"
 <<<<<<< HEAD
+<<<<<<< HEAD
 
             android:textColor="@color/cardview_light_background"
 =======
+=======
+            android:fontFamily="@font/montserrat_bold"
+>>>>>>> upstream/master
             android:textColor="@android:color/white"
 >>>>>>> upstream/master
             android:textSize="18sp"
@@ -47,8 +51,12 @@
             android:layout_alignStart="@+id/holderName"
             android:text="TextView"
 <<<<<<< HEAD
+<<<<<<< HEAD
             android:textColor="@color/cardview_light_background"
 =======
+=======
+            android:fontFamily="@font/montserrat_bold"
+>>>>>>> upstream/master
             android:textColor="@android:color/white"
 >>>>>>> upstream/master
             android:textSize="20sp"
@@ -60,7 +68,7 @@
             android:layout_height="90dp"
             android:layout_above="@+id/UID"
             android:layout_toEndOf="@+id/holderName"
-            android:src="@color/colorAccent" />
+            android:src="@color/cardview_light_background" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
