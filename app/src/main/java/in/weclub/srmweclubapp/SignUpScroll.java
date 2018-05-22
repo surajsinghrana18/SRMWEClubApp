@@ -46,7 +46,7 @@ public class SignUpScroll extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up_scroll);
         dh = new DatabaseHelper(this);
         fName = (EditText)findViewById(R.id.fName);
-        lName = (EditText)findViewById(R.id.lName);
+        //lName = (EditText)findViewById(R.id.lName);
         mobNo = (EditText)findViewById(R.id.moNum);
         email = (EditText)findViewById(R.id.email);
         pass = (EditText)findViewById(R.id.pass);
@@ -58,13 +58,14 @@ public class SignUpScroll extends AppCompatActivity {
                 if (pass.getText().toString().equals(conpass.getText().toString())) {
                     char[] c = new char[11];
                     fName.getText().toString().getChars(0, 2, c, 0);
-                    lName.getText().toString().getChars(0, 2, c, 3);
+                    email.getText().toString().getChars(0, 2, c, 3);
                     StringBuilder b = new StringBuilder(new String(c));
                     int i = Calendar.getInstance().get(Calendar.YEAR) + (int)(Math.random()*10000);
                     b.append(i);
                     final String f1 = b.toString();
                     final String f = fName.getText().toString().trim();
-                    final String l = lName.getText().toString().trim();
+                    //l changed to email from last name
+                    final String l = email.getText().toString().trim();
                     final String m = mobNo.getText().toString().trim();
                     /*boolean inserted = dh.insertContact(b.toString(), fName.getText().toString(),
                             lName.getText().toString(), email.getText().toString(), mobNo.getText().toString(),
@@ -103,7 +104,7 @@ public class SignUpScroll extends AppCompatActivity {
                                         String id = firebaseAuth.getCurrentUser().getUid();
                                         DatabaseReference d = ref.child(id);
                                         d.child("First Name: ").setValue(f);
-                                        d.child("Last Name: ").setValue(l);
+                                        d.child("email: ").setValue(l);
                                         d.child("Mobile number: ").setValue(m);
                                         d.child("UID: ").setValue(f1);
                                         Toast.makeText(SignUpScroll.this, "Registration successful", Toast.LENGTH_LONG).show();

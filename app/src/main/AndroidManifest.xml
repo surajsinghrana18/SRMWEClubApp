@@ -28,9 +28,12 @@
         <activity
             android:name=".GoogleSignin"
             android:label="@string/common_signin_button_text" />
-            />
         <activity android:name=".Partners" />
-        <activity android:name=".SignUpScroll" />
+        <activity
+            android:name=".SignUpScroll"
+            android:label="Signup"
+            android:theme = "@style/AppTheme.NoActionBar"
+            />
         <activity
             android:name=".Profile"
             android:label="@string/title_activity_profile"
