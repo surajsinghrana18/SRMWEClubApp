@@ -67,21 +67,8 @@ public class Profile extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            AlertDialog.Builder a = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
-            a.setTitle(Html.fromHtml("<font color='#000000'>Logout</font>"));
-            a.setMessage(Html.fromHtml("<font color='#0000000'>Are you sure you want to Logout?</font>")).setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    auth.signOut();
-                    startActivity(new Intent(Profile.this, LoginActivity1.class));
-                }
-            }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            }).show();
-            //super.onBackPressed();
+
+            super.onBackPressed();
         }
     }
 
@@ -177,7 +164,6 @@ public class Profile extends AppCompatActivity
         }
         }*/
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //DatabaseReference ref = database.getReference("Users");
         DatabaseReference ref = database.getReference("Users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -185,7 +171,7 @@ public class Profile extends AppCompatActivity
                 String f = dataSnapshot.child(user.getUid()).child("First Name: ").getValue(String.class);
                 String l = dataSnapshot.child(user.getUid()).child("Last Name: ").getValue(String.class);
                 String s = f+" "+l;
-                //String m = dataSnapshot.child(user.getUid()).child("Mobile number: ").getValue(String.class);
+                String m = dataSnapshot.child(user.getUid()).child("Mobile number: ").getValue(String.class);
                 String uid = dataSnapshot.child(user.getUid()).child("UID: ").getValue(String.class);
                 //TextView name = findViewById(R.id.nameProf);
                 //TextView mobNo = findViewById(R.id.mobNo2);

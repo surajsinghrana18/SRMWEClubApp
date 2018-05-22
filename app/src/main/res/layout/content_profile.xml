@@ -14,8 +14,8 @@
     <RelativeLayout
         android:layout_width="335dp"
         android:layout_height="190dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="147dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="160dp"
         android:background="@drawable/virtualcard"
         android:rotation="0"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,11 @@
             android:layout_marginBottom="25dp"
             android:layout_marginStart="16dp"
             android:text="TextView"
+<<<<<<< HEAD
             android:textColor="@android:color/white"
+=======
+            android:textColor="@color/cardview_light_background"
+>>>>>>> upstream/master
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -41,7 +45,11 @@
             android:layout_above="@+id/holderName"
             android:layout_alignStart="@+id/holderName"
             android:text="TextView"
+<<<<<<< HEAD
             android:textColor="@android:color/white"
+=======
+            android:textColor="@color/cardview_light_background"
+>>>>>>> upstream/master
             android:textSize="20sp"
             android:textStyle="bold" />
 

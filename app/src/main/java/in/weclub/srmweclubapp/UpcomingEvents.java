@@ -1,13 +1,16 @@
 package in.weclub.srmweclubapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +46,7 @@ public class UpcomingEvents extends AppCompatActivity
     private RecyclerView.LayoutManager rLM;
     private List<EventInfo> infoList = new ArrayList<>();
     private EventAdapter ea;
+    //private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +91,7 @@ public class UpcomingEvents extends AppCompatActivity
                     String time = ds.child("Time").getValue(String.class);
                     String venue = ds.child("Venue").getValue(String.class);
                     String url = ds.child("Image").getValue(String.class);
-
-                    ImageView img = (ImageView) findViewById(R.id.imageView3);
-                    Glide.with(UpcomingEvents.this).load(url).into(img);
-                    infoList.add(new EventInfo(name, spk, date, time, venue, ds.getKey()));
+                    infoList.add(new EventInfo(name, spk, date, time, venue, url, ds.getKey()));
                     ea.notifyDataSetChanged();
                 }
             }
@@ -105,11 +107,25 @@ public class UpcomingEvents extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        /*if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            AlertDialog.Builder a = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
+            a.setTitle(Html.fromHtml("<font color='#000000'>Logout</font>"));
+            a.setMessage(Html.fromHtml("<font color='#0000000'>Are you sure you want to Logout?</font>")).setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    auth.signOut();
+                    startActivity(new Intent(UpcomingEvents.this, LoginActivity1.class));
+                }
+            }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            }).show();*/
             super.onBackPressed();
-        }
+        //}
     }
 
     @Override

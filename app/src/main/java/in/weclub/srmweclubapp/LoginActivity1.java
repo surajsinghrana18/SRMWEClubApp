@@ -78,7 +78,7 @@ public class LoginActivity1 extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(LoginActivity1.this, "Login successful", Toast.LENGTH_LONG).show();
                                     //DataPosition.set_Email(email.getText().toString());
-                                    Intent i = new Intent(LoginActivity1.this, Profile.class);
+                                    Intent i = new Intent(LoginActivity1.this, UpcomingEvents.class);
                                     startActivity(i);
                                 } else {
                                     Log.e("ERROR", task.getException().toString());
