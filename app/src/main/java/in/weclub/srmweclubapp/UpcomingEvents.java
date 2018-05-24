@@ -59,15 +59,6 @@ public class UpcomingEvents extends AppCompatActivity
         rView= (RecyclerView)findViewById(R.id.eventRec);
         rLM = new LinearLayoutManager(this);
         rView.setLayoutManager(rLM);
-        /*try
-        {
-            Bundle b = getIntent().getExtras();
-            p = b.getInt("Position");
-        }catch(Exception ex)
-
-        {
-            p = -1;
-        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -79,32 +70,24 @@ public class UpcomingEvents extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         ea = new EventAdapter(this,infoList);
-        rView.setAdapter(ea);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseUser u = auth.getCurrentUser();
+
         DatabaseReference ref = database.getReference("Event");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String name = ds.child("Event Name").getValue(String.class);
-                    String spk = ds.child("Speaker").getValue(String.class);
-                    String date = ds.child("Date").getValue(String.class);
-                    String time = ds.child("Time").getValue(String.class);
-                    String venue = ds.child("Venue").getValue(String.class);
-                    String url = ds.child("Image").getValue(String.class);
                     final String id = ds.getKey();
                     DatabaseReference ref1 = database.getReference("Users");
                     ref1.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            FirebaseUser u = auth.getCurrentUser();
                             String g = dataSnapshot.child(u.getUid()).child("Registered Events").child(id)
                                     .getValue(String.class);
                             if (g != null)
                                 setEn(g.equals("Registered"));
-                            else
-                                setEn(false);
                         }
 
                         @Override
@@ -112,8 +95,13 @@ public class UpcomingEvents extends AppCompatActivity
 
                         }
                     });
+                    String name = ds.child("Event Name").getValue(String.class);
+                    String spk = ds.child("Speaker").getValue(String.class);
+                    String date = ds.child("Date").getValue(String.class);
+                    String time = ds.child("Time").getValue(String.class);
+                    String venue = ds.child("Venue").getValue(String.class);
+                    String url = ds.child("Image").getValue(String.class);
                     infoList.add(new EventInfo(name, spk, date, time, venue, url, id , en));
-                    ea.notifyDataSetChanged();
                 }
             }
 
@@ -123,6 +111,8 @@ public class UpcomingEvents extends AppCompatActivity
             }
         });
 
+        ea.notifyDataSetChanged();
+        rView.setAdapter(ea);
         //infoList.add(new EventInfo("Java Workshop", "Apan Trikha", "10:00 AM", "Computer Lab 6","EV1001"));
     }
 
@@ -150,10 +140,7 @@ public class UpcomingEvents extends AppCompatActivity
                                     .getValue(String.class);
                             if (g != null) {
                                 for (EventInfo i : infoList) {
-                                    if (i.getEvID().equals(g))
-                                        i.setEnrolled(true);
-                                    else
-                                        i.setEnrolled(false);
+                                    i.setEnrolled(g.equals("Registered"));
                                 }
                             }
                         }
@@ -179,7 +166,7 @@ public class UpcomingEvents extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        /*if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             AlertDialog.Builder a = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
@@ -195,9 +182,9 @@ public class UpcomingEvents extends AppCompatActivity
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
-            }).show();*/
+            }).show();
             super.onBackPressed();
-        //}
+        }
     }
 
     @Override
@@ -232,7 +219,7 @@ public class UpcomingEvents extends AppCompatActivity
         switch(id)
         {
             case R.id.partners2:
-                Intent it = new Intent(UpcomingEvents.this, Partners.class);
+                Intent it = new Intent(UpcomingEvents.this, FindPartner.class);
                 startActivity(it);
                 break;
             case R.id.webLink3:

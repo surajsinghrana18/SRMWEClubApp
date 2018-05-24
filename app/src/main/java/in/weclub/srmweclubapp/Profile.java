@@ -103,7 +103,7 @@ public class Profile extends AppCompatActivity
         switch (id)
         {
             case R.id.partners:
-                Intent it = new Intent(Profile.this, Partners.class);
+                Intent it = new Intent(Profile.this, FindPartner.class);
                 startActivity(it);
                 Bundle b = new Bundle();
                 b.putInt("Position", p);
