@@ -28,7 +28,7 @@ public class GoogleSignin extends LoginActivity1  {
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth firebaseAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
@@ -42,16 +42,12 @@ public class GoogleSignin extends LoginActivity1  {
         //configuring google-signin
         //strating initializing auth
 
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        signInButton = (SignInButton) findViewById(R.id.sign_in_buttongoogle);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        //ending config sign-in
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        signInButton = (SignInButton) findViewById(R.id.sign_in_button);
-
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,12 +55,18 @@ public class GoogleSignin extends LoginActivity1  {
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
+        //ending config sign-in
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
+
+
     }
 
     protected void onStart(Bundle savedInstances) {
         super.onStart();
         //checkig if user is alreday signed in or not
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser u = firebaseAuth.getCurrentUser();
 
     }
 
@@ -93,15 +95,15 @@ public class GoogleSignin extends LoginActivity1  {
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
+        firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent i = new Intent(getApplicationContext(),Profile.class);
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            Intent i = new Intent(getApplicationContext(),UpcomingEvents.class);
                             startActivity(i);
                             finish();
                             Toast.makeText(GoogleSignin.this,"User logged in Succesfully",Toast.LENGTH_SHORT).show();
