@@ -27,11 +27,16 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="25dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginBottom="26dp"
+            android:layout_marginStart="18dp"
             android:text="TextView"
+
+
+
             android:fontFamily="@font/montserrat_bold"
+
             android:textColor="@android:color/white"
+
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -42,8 +47,13 @@
             android:layout_above="@+id/holderName"
             android:layout_alignStart="@+id/holderName"
             android:text="TextView"
+
+
+
             android:fontFamily="@font/montserrat_bold"
+
             android:textColor="@android:color/white"
+
             android:textSize="20sp"
             android:textStyle="bold" />
 
