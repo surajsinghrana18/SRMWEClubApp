@@ -31,7 +31,7 @@ public class FindPartner extends AppCompatActivity
 
     private RecyclerView rView;
     private RecyclerView.LayoutManager rLM;
-    private List<VendorInfo> vendorInfos = new ArrayList<VendorInfo>();
+    private List<VendorInfo> vendorInfos = new ArrayList<>();
     private VendorAdapter va;
     private int p;
 
@@ -57,6 +57,7 @@ public class FindPartner extends AppCompatActivity
         rLM = new LinearLayoutManager(this);
         rView.setLayoutManager(rLM);
 
+        va = new VendorAdapter(FindPartner.this, vendorInfos);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Offers");
         ref.addValueEventListener(new ValueEventListener() {
             @Override

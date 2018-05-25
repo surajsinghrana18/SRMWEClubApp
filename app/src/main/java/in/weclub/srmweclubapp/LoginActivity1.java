@@ -151,9 +151,6 @@ public class LoginActivity1 extends AppCompatActivity {
     }
 
 
-
-
-
     protected void onStart(Bundle savedInstances) {
         super.onStart();
         //checkig if user is alreday signed in or not

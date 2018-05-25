@@ -13,9 +13,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-/**
- * Created by root on 5/23/18.
- */
 
 public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.ViewHolder> implements View.OnClickListener {
 
@@ -35,7 +32,7 @@ public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.ViewHolder
             vendLoc = (TextView)v.findViewById(R.id.vendLoc);
             offer = (TextView)v.findViewById(R.id.offer);
             img = (ImageView)v.findViewById(R.id.vendImg);
-            parentLayout = v.findViewById(R.id.vendView);
+            parentLayout = v.findViewById(R.id.vendRec);
         }
     }
 
