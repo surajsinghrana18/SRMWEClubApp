@@ -46,7 +46,8 @@
             android:name=".UpcomingEvents"
             android:label="@string/title_activity_upcoming_events"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoginActivity1" />
+        <activity android:name=".LoginActivity1"
+            android:theme = "@style/AppTheme.NoActionBar"/>
         <activity android:name=".EventDescription"></activity>
 
         <meta-data
