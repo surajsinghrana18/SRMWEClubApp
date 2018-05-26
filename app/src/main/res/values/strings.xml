@@ -9,6 +9,10 @@
 
     <string name="action_settings">Settings</string>
 
+    //adding facebook strings
+    <string name="facebook_app_id">1710511879045220</string>
+    <string name="fb_login_protocol_scheme">fb1710511879045220</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_profile">Profile</string>
