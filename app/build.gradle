@@ -43,6 +43,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:15.0.0'
     //picture uploading
     compile 'com.squareup.picasso:picasso:2.5.2'
+    //facebook login integration
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
 
 
