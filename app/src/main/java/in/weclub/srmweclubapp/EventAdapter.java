@@ -3,6 +3,7 @@ package in.weclub.srmweclubapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,16 +43,15 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
 
-        public TextView eventName, speaker, t, venue ,date, enr;
+        public TextView eventName, speaker, endTime , startTime, enr;
         public ImageView img;
         public RelativeLayout parentLayout;
         public ViewHolder(View v) {
             super(v);
             eventName = (TextView) v.findViewById(R.id.eventName);
             speaker = (TextView)v.findViewById(R.id.speaker);
-            t = (TextView) v.findViewById(R.id.eventTime);
-            venue = (TextView) v.findViewById(R.id.venue);
-            date = (TextView) v.findViewById(R.id.date);
+            endTime = (TextView)v.findViewById(R.id.endTime);
+            startTime = (TextView)v.findViewById(R.id.startTime);
             img = (ImageView) v.findViewById(R.id.imageView3);
             enr = (TextView) v.findViewById(R.id.enr);
             parentLayout = v.findViewById(R.id.parentLayout);
@@ -63,8 +63,10 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
         events = infoList;
         this.context = context;
     }
+
+    @NonNull
     @Override
-    public EventAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EventAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_layout, parent, false);
         return new ViewHolder(v);
     }
@@ -74,9 +76,8 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
         EventInfo info = events.get(position);
         holder.eventName.setText(info.getName());
         holder.speaker.setText(String.format("Speaker: %s", info.getSpeaker()));
-        holder.date.setText(String.format("Date: %s", info.getDate()));
-        holder.t.setText(String.format("Time: %s", info.getTime()));
-        holder.venue.setText(String.format("Venue: %s", info.getVenue()));
+        holder.startTime.setText(String.format("Start Time: %s", info.getStartTime()));
+        holder.endTime.setText(String.format("End Time: %s", info.getEndTime()));
         Glide.with(context).load(info.getImg()).into(holder.img);
         final String s = info.getEvID();
 

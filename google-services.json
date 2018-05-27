@@ -15,6 +15,18 @@
       },
       "oauth_client": [
         {
+          "client_id": "159881279338-6tomd7g47mk6pesa300faa901nu24rv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.weclub.srmweclubapp",
+            "certificate_hash": "ee9d9911c1396abb5bf857d048f3f8a03a8946ee"
+          }
+        },
+        {
+          "client_id": "159881279338-uv703p4tr6717blv1d4dgd6m6jtk1v4d.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "159881279338-uv703p4tr6717blv1d4dgd6m6jtk1v4d.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +41,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "159881279338-uv703p4tr6717blv1d4dgd6m6jtk1v4d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

@@ -1,8 +1,5 @@
 package in.weclub.srmweclubapp;
 
-/**
- * Created by root on 5/23/18.
- */
 
 public class VendorInfo {
     private String vendorName, vendorLoc, offer, vendorImage;

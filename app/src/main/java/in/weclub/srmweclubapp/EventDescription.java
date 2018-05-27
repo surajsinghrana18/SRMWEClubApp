@@ -3,6 +3,7 @@ package in.weclub.srmweclubapp;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class EventDescription extends AppCompatActivity {
         DatabaseReference dr = database.getReference("Users");
             dr.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String g = dataSnapshot.child(u.getUid()).child("Registered Events").child(getIntent().
                             getExtras().getString("Event ID"))
                             .getValue(String.class);
@@ -49,20 +50,17 @@ public class EventDescription extends AppCompatActivity {
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String s = getIntent().getExtras().getString("Event ID");
                     DataSnapshot ds = dataSnapshot.child(s);
                     String name = ds.child("Event Name").getValue(String.class);
                     String spk = ds.child("Speaker").getValue(String.class);
-                    String date = ds.child("Date").getValue(String.class);
-                    String time = ds.child("Time").getValue(String.class);
-                    String venue = ds.child("Venue").getValue(String.class);
                     String url = ds.child("Image").getValue(String.class);
                     String decp = ds.child("Description").getValue(String.class);
 
@@ -71,12 +69,12 @@ public class EventDescription extends AppCompatActivity {
                     TextView n = findViewById(R.id.eventName1);
                     TextView det = findViewById(R.id.eventDet);
                     TextView des = findViewById(R.id.eventDesc);
-                    des.setText(decp);
+                    det.setText(decp);
 
                     final String i = ds.getKey();
 
                     n.setText(name);
-                    det.setText(String.format("Speaker: %s\nDate: %s\nTime: %s\nVenue: %s", spk, date, time, venue));
+                    des.setText(String.format("Speaker: %s", spk));
 
                     b = (Button) findViewById(R.id.button2);
                     if (!registered) {

@@ -97,14 +97,13 @@ public class UpcomingEvents extends AppCompatActivity
                     });
                     String name = ds.child("Event Name").getValue(String.class);
                     String spk = ds.child("Speaker").getValue(String.class);
-                    String date = ds.child("Date").getValue(String.class);
-                    String time = ds.child("Time").getValue(String.class);
-                    String venue = ds.child("Venue").getValue(String.class);
+                    String sTime = ds.child("Start Time").getValue(String.class);
+                    String etime = ds.child("End Time").getValue(String.class);
+                    String type = ds.child("Type").getValue(String.class);
                     String url = ds.child("Image").getValue(String.class);
-                    infoList.add(new EventInfo(name, spk, date, time, venue, url, id , en));
+                    infoList.add(new EventInfo(name, spk, sTime, etime, type, url, id , en));
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

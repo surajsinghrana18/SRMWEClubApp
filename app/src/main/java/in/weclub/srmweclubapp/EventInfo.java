@@ -20,18 +20,18 @@ import java.util.Date;
 
 public class EventInfo {
 
-    private String eventName, speaker, time, venue, evID, date, img;
+    private String eventName, speaker, endTime, venue, evID, startTime, img;
     private boolean enrolled;
 
-    public EventInfo(String name, String spkr, String date, String time, String ven, String img,
+    public EventInfo(String name, String spkr, String st, String et, String ven, String img,
                      String ID, boolean en) {
         eventName = name;
         speaker = spkr;
-        this.time = time;
+        startTime = st;
         this.img = img;
         venue = ven;
         evID = ID;
-        this.date = date;
+        endTime = et;
         enrolled = en;
     }
 
@@ -44,8 +44,8 @@ public class EventInfo {
         return speaker;
     }
 
-    public String getTime() {
-        return time;
+    public String getStartTime() {
+        return startTime;
     }
 
     public String getVenue() {
@@ -56,8 +56,8 @@ public class EventInfo {
         return evID;
     }
 
-    public String getDate() {
-        return date;
+    public String getEndTime() {
+        return endTime;
     }
 
     public String getImg() { return img; }
@@ -66,12 +66,5 @@ public class EventInfo {
 
     public void setEnrolled (boolean t) {enrolled = t; }
 
-    public void setInfo(String name, String spkr, String time, String ven, String ID) {
-        eventName = name;
-        speaker = spkr;
-        this.time = time;
-        venue = ven;
-        evID = ID;
-    }
 
 }

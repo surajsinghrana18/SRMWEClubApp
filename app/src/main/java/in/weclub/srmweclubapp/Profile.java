@@ -1,8 +1,6 @@
 package in.weclub.srmweclubapp;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,14 +8,13 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +22,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -169,8 +165,8 @@ public class Profile extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String f = dataSnapshot.child(user.getUid()).child("First Name: ").getValue(String.class);
-                String l = dataSnapshot.child(user.getUid()).child("Last Name: ").getValue(String.class);
-                String s = f+" "+l;
+                //String l = dataSnapshot.child(user.getUid()).child("Last Name: ").getValue(String.class);
+                //String s = f+" "+l;
                 String m = dataSnapshot.child(user.getUid()).child("Mobile number: ").getValue(String.class);
                 String uid = dataSnapshot.child(user.getUid()).child("UID: ").getValue(String.class);
                 //TextView name = findViewById(R.id.nameProf);
@@ -178,7 +174,7 @@ public class Profile extends AppCompatActivity
                 TextView Uid = findViewById(R.id.UID);
                 TextView hName = findViewById(R.id.holderName);
                 //name.setText(s); mobNo.setText(m);
-                hName.setText(s); Uid.setText(uid);
+                hName.setText(f); Uid.setText(uid);
             }
 
             @Override
@@ -186,12 +182,10 @@ public class Profile extends AppCompatActivity
 
             }
         });
-        /*if(user != null)
-        {
-          email.setText(user.getEmail());
+        if(user == null) {
+            Toast.makeText(this, "User Information Unavailable", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Profile.this, LoginActivity.class));
         }
-        else
-            startActivity(new Intent(Profile.this, LoginActivity.class));*/
         MultiFormatWriter mfw = new MultiFormatWriter();
         try
         {

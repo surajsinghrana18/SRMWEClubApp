@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 
-public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.ViewHolder> implements View.OnClickListener {
+public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.ViewHolder>{
 
     private List<VendorInfo> vendors;
     private Context context;
@@ -44,12 +44,12 @@ public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.ViewHolder
     @NonNull
     @Override
     public VendorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_layout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.vendor_layout, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder( @NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder( @NonNull VendorAdapter.ViewHolder holder, int position) {
         VendorInfo v = vendors.get(position);
         holder.vendName.setText(v.getVendorName());
         holder.vendLoc.setText(v.getVendorLoc());
@@ -63,8 +63,4 @@ public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.ViewHolder
         return vendors.size();
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
 }

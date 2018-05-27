@@ -30,10 +30,10 @@ public class FindPartner extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rView;
+    private RecyclerView.Adapter rA;
     private RecyclerView.LayoutManager rLM;
     private List<VendorInfo> vendorInfos = new ArrayList<>();
     private VendorAdapter va;
-    private int p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,6 @@ public class FindPartner extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        p = DataPosition.getPos();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -57,11 +56,12 @@ public class FindPartner extends AppCompatActivity
         rLM = new LinearLayoutManager(this);
         rView.setLayoutManager(rLM);
 
-        va = new VendorAdapter(FindPartner.this, vendorInfos);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Offers");
+        FirebaseDatabase fd = FirebaseDatabase.getInstance();
+        DatabaseReference ref = fd.getReference("Offers");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                vendorInfos.clear();
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     String n = ds.child("Vendor Name").getValue(String.class);
                     String l = ds.child("Vendor Location").getValue(String.class);
@@ -76,7 +76,7 @@ public class FindPartner extends AppCompatActivity
 
             }
         });
-        va.notifyDataSetChanged();
+        va = new VendorAdapter(this, vendorInfos);
         rView.setAdapter(va);
     }
 

@@ -147,7 +147,6 @@ public class LoginActivity1 extends AppCompatActivity {
                 });
             }
         });
-        //fb activityfor result
             login();
     }
     public void login() {
@@ -211,7 +210,7 @@ public class LoginActivity1 extends AppCompatActivity {
 
     protected void onStart(Bundle savedInstances) {
         super.onStart();
-        //checkig if user is alreday signed in or not
+        //checking if user is already signed in or not
         FirebaseUser u = firebaseAuth.getCurrentUser();
         if(u!=null)
         {
@@ -287,8 +286,7 @@ public class LoginActivity1 extends AppCompatActivity {
 
     }
 
-    //facebook button intergration
-    // Initialize Facebook Login button
+
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
@@ -300,7 +298,6 @@ public class LoginActivity1 extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
                             Intent i = new Intent(getApplicationContext(),UpcomingEvents.class);
                             startActivity(i);
                             finish();
@@ -311,8 +308,6 @@ public class LoginActivity1 extends AppCompatActivity {
                             Toast.makeText(LoginActivity1.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
-                        // ...
                     }
                 });
     }
