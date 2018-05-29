@@ -84,6 +84,8 @@ public class LoginActivity1 extends AppCompatActivity {
     private EditText email, pass;
     private Button login;
     private FirebaseAuth firebaseAuth;
+    private TextView forgotpassword;
+
 
 
 
@@ -145,6 +147,13 @@ public class LoginActivity1 extends AppCompatActivity {
                         // ...
                     }
                 });
+            }
+        });
+        forgotpassword = (TextView)findViewById(R.id.forgotpassword);
+        forgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity1.this,Password_reset.class));
             }
         });
             login();
@@ -298,6 +307,7 @@ public class LoginActivity1 extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
                             Intent i = new Intent(getApplicationContext(),UpcomingEvents.class);
                             startActivity(i);
                             finish();
