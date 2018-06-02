@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,6 +50,7 @@ public class UpcomingEvents extends AppCompatActivity
     private EventAdapter ea;
     private boolean en;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private SwipeRefreshLayout srp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class UpcomingEvents extends AppCompatActivity
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final FirebaseUser u = auth.getCurrentUser();
 
+        srp = (SwipeRefreshLayout)findViewById(R.id.swipeContainerEvents);
         DatabaseReference ref = database.getReference("Event");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -112,6 +115,7 @@ public class UpcomingEvents extends AppCompatActivity
 
         ea.notifyDataSetChanged();
         rView.setAdapter(ea);
+        refresh();
         //infoList.add(new EventInfo("Java Workshop", "Apan Trikha", "10:00 AM", "Computer Lab 6","EV1001"));
     }
 
@@ -119,10 +123,61 @@ public class UpcomingEvents extends AppCompatActivity
         en = b;
     }
 
+    private void refresh(){
+        srp.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                infoList.clear();
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final FirebaseUser u = auth.getCurrentUser();
+                DatabaseReference ref = database.getReference("Event");
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            final String id = ds.getKey();
+                            DatabaseReference ref1 = database.getReference("Users");
+                            ref1.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    String g = dataSnapshot.child(u.getUid()).child("Registered Events").child(id)
+                                            .getValue(String.class);
+                                    if (g != null)
+                                        setEn(g.equals("Registered"));
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                            String name = ds.child("Event Name").getValue(String.class);
+                            String spk = ds.child("Speaker").getValue(String.class);
+                            String sTime = ds.child("Start Time").getValue(String.class);
+                            String etime = ds.child("End Time").getValue(String.class);
+                            String type = ds.child("Type").getValue(String.class);
+                            String url = ds.child("Image").getValue(String.class);
+                            infoList.add(new EventInfo(name, spk, sTime, etime, type, url, id , en));
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+        //srp.setRefreshing(false);
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        getInfo();
+        refresh();
+    }
+
+    private void getInfo(){
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Event");
         ref.addValueEventListener(new ValueEventListener() {
@@ -168,20 +223,6 @@ public class UpcomingEvents extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            AlertDialog.Builder a = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
-            a.setTitle(Html.fromHtml("<font color='#000000'>Logout</font>"));
-            a.setMessage(Html.fromHtml("<font color='#0000000'>Are you sure you want to Logout?</font>")).setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    auth.signOut();
-                    startActivity(new Intent(UpcomingEvents.this, LoginActivity1.class));
-                }
-            }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            }).show();
             super.onBackPressed();
         }
     }
@@ -202,6 +243,20 @@ public class UpcomingEvents extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            AlertDialog.Builder a = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
+            a.setTitle(Html.fromHtml("<font color='#000000'>Logout</font>"));
+            a.setMessage(Html.fromHtml("<font color='#0000000'>Are you sure you want to Logout?</font>")).setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    auth.signOut();
+                    startActivity(new Intent(UpcomingEvents.this, LoginActivity1.class));
+                }
+            }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            }).show();
             return true;
         }
 

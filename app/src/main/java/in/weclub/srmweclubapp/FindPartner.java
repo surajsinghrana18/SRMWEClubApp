@@ -1,12 +1,16 @@
 package in.weclub.srmweclubapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +39,8 @@ public class FindPartner extends AppCompatActivity
     private RecyclerView.LayoutManager rLM;
     private List<VendorInfo> vendorInfos = new ArrayList<>();
     private VendorAdapter va;
+    private SwipeRefreshLayout srp;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +63,55 @@ public class FindPartner extends AppCompatActivity
         rLM = new LinearLayoutManager(this);
         rView.setLayoutManager(rLM);
 
+        va = new VendorAdapter(this,vendorInfos);
+
+        srp = (SwipeRefreshLayout)findViewById(R.id.swipeContainerPartner);
+
+        FirebaseDatabase fd = FirebaseDatabase.getInstance();
+        DatabaseReference ref = fd.getReference("Offers");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //vendorInfos.clear();
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String n = ds.child("Vendor Name").getValue(String.class);
+                    String l = ds.child("Vendor Location").getValue(String.class);
+                    String o = ds.child("Offer").getValue(String.class);
+                    String i = ds.child("Vendor Image").getValue(String.class);
+                    vendorInfos.add(new VendorInfo(n,l,o,i));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        va.notifyDataSetChanged();
+        rView.setAdapter(va);
+        getInfo();
+        refresh();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getInfo();
+
+    }
+
+    private void refresh(){
+        vendorInfos.clear();
+        srp.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getInfo();
+            }
+        });
+        //srp.setRefreshing(false);
+    }
+
+    private void getInfo(){
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
         DatabaseReference ref = fd.getReference("Offers");
         ref.addValueEventListener(new ValueEventListener() {
@@ -76,7 +132,7 @@ public class FindPartner extends AppCompatActivity
 
             }
         });
-        va = new VendorAdapter(this, vendorInfos);
+        va.notifyDataSetChanged();
         rView.setAdapter(va);
     }
 
@@ -106,6 +162,20 @@ public class FindPartner extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            AlertDialog.Builder a = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
+            a.setTitle(Html.fromHtml("<font color='#000000'>Logout</font>"));
+            a.setMessage(Html.fromHtml("<font color='#0000000'>Are you sure you want to Logout?</font>")).setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    auth.signOut();
+                    startActivity(new Intent(FindPartner.this, LoginActivity1.class));
+                }
+            }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            }).show();
             return true;
         }
 
