@@ -108,8 +108,9 @@ public class Profile extends AppCompatActivity
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.weclub.in/"));
                 startActivity(browserIntent);
                 break;
-            case R.id.eventsUp:
-                Intent it1 = new Intent(Profile.this, UpcomingEvents.class);
+
+            case R.id.edit:
+                Intent it1 = new Intent(Profile.this, EditProfile.class);
                 startActivity(it1);
                 break;
         }

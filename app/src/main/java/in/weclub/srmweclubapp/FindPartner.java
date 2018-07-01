@@ -203,6 +203,10 @@ public class FindPartner extends AppCompatActivity
                 Intent it1 = new Intent(FindPartner.this, UpcomingEvents.class);
                 startActivity(it1);
                 break;
+            case R.id.edit2:
+                Intent it2 = new Intent(FindPartner.this, EditProfile.class);
+                startActivity(it2);
+                break;
         }
         /*
         if (id == R.id.nav_camera) {

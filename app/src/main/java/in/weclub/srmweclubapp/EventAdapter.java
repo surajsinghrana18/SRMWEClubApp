@@ -43,7 +43,7 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
 
-        public TextView eventName, speaker, endTime , startTime, enr;
+        public TextView eventName, speaker, endTime , startTime;//, enr;
         public ImageView img;
         public RelativeLayout parentLayout;
         public ViewHolder(View v) {
@@ -53,7 +53,7 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
             endTime = (TextView)v.findViewById(R.id.endTime);
             startTime = (TextView)v.findViewById(R.id.startTime);
             img = (ImageView) v.findViewById(R.id.imageView3);
-            enr = (TextView) v.findViewById(R.id.enr);
+            //enr = (TextView) v.findViewById(R.id.enr);
             parentLayout = v.findViewById(R.id.parentLayout);
         }
     }
@@ -81,14 +81,14 @@ public class EventAdapter  extends RecyclerView.Adapter<EventAdapter.ViewHolder>
         Glide.with(context).load(info.getImg()).into(holder.img);
         final String s = info.getEvID();
 
-        if(info.getEnrolled()){
+        /*if(info.getEnrolled()){
             holder.enr.setText("Enrolled");
             holder.enr.setBackgroundColor(Color.rgb(219,25,25));
         }
         else{
             holder.enr.setText("Open");
             holder.enr.setBackgroundColor(Color.rgb(36 ,219,25));
-        }
+        }*/
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

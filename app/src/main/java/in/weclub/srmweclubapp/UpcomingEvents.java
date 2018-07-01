@@ -48,7 +48,7 @@ public class UpcomingEvents extends AppCompatActivity
     private RecyclerView.LayoutManager rLM;
     private List<EventInfo> infoList = new ArrayList<>();
     private EventAdapter ea;
-    private boolean en;
+   // private boolean en;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private SwipeRefreshLayout srp;
 
@@ -83,7 +83,7 @@ public class UpcomingEvents extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     final String id = ds.getKey();
-                    DatabaseReference ref1 = database.getReference("Users");
+                    /*DatabaseReference ref1 = database.getReference("Users");
                     ref1.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -97,14 +97,14 @@ public class UpcomingEvents extends AppCompatActivity
                         public void onCancelled(DatabaseError databaseError) {
 
                         }
-                    });
+                    });*/
                     String name = ds.child("Event Name").getValue(String.class);
                     String spk = ds.child("Speaker").getValue(String.class);
                     String sTime = ds.child("Start Time").getValue(String.class);
                     String etime = ds.child("End Time").getValue(String.class);
                     String type = ds.child("Type").getValue(String.class);
                     String url = ds.child("Image").getValue(String.class);
-                    infoList.add(new EventInfo(name, spk, sTime, etime, type, url, id , en));
+                    infoList.add(new EventInfo(name, spk, sTime, etime, type, url, id ));//, en));
                 }
             }
             @Override
@@ -119,9 +119,9 @@ public class UpcomingEvents extends AppCompatActivity
         //infoList.add(new EventInfo("Java Workshop", "Apan Trikha", "10:00 AM", "Computer Lab 6","EV1001"));
     }
 
-    private void setEn(boolean b){
+   /* private void setEn(boolean b){
         en = b;
-    }
+    }*/
 
     private void refresh(){
         srp.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -136,7 +136,7 @@ public class UpcomingEvents extends AppCompatActivity
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
                             final String id = ds.getKey();
-                            DatabaseReference ref1 = database.getReference("Users");
+                            /*DatabaseReference ref1 = database.getReference("Users");
                             ref1.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -150,14 +150,14 @@ public class UpcomingEvents extends AppCompatActivity
                                 public void onCancelled(DatabaseError databaseError) {
 
                                 }
-                            });
+                            });*/
                             String name = ds.child("Event Name").getValue(String.class);
                             String spk = ds.child("Speaker").getValue(String.class);
                             String sTime = ds.child("Start Time").getValue(String.class);
                             String etime = ds.child("End Time").getValue(String.class);
                             String type = ds.child("Type").getValue(String.class);
                             String url = ds.child("Image").getValue(String.class);
-                            infoList.add(new EventInfo(name, spk, sTime, etime, type, url, id , en));
+                            infoList.add(new EventInfo(name, spk, sTime, etime, type, url, id));// , en));
                         }
                     }
                     @Override
@@ -268,12 +268,12 @@ public class UpcomingEvents extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Intent it;
 
         switch(id)
         {
             case R.id.partners2:
-                Intent it = new Intent(UpcomingEvents.this, FindPartner.class);
+                it = new Intent(UpcomingEvents.this, FindPartner.class);
                 startActivity(it);
                 break;
             case R.id.webLink3:
@@ -281,8 +281,12 @@ public class UpcomingEvents extends AppCompatActivity
                 startActivity(browserIntent);
                 break;
             case R.id.virtCard2:
-                Intent it1 = new Intent(UpcomingEvents.this, Profile.class);
-                startActivity(it1);
+                it = new Intent(UpcomingEvents.this, Profile.class);
+                startActivity(it);
+                break;
+            case R.id.edit3:
+                it = new Intent(UpcomingEvents.this, EditProfile.class);
+                startActivity(it);
                 break;
         }
 /*        if (id == R.id.nav_camera) {

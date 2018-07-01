@@ -35,6 +35,16 @@ public class EventInfo {
         enrolled = en;
     }
 
+    public EventInfo(String name, String spkr, String st, String et, String ven, String img,
+                     String ID) {
+        eventName = name;
+        speaker = spkr;
+        startTime = st;
+        this.img = img;
+        venue = ven;
+        evID = ID;
+        endTime = et;
+    }
 
     public String getName() {
         return eventName;

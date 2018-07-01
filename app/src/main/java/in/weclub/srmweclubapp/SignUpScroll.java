@@ -2,7 +2,6 @@ package in.weclub.srmweclubapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -19,19 +16,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class SignUpScroll extends AppCompatActivity {
 
@@ -45,10 +36,10 @@ public class SignUpScroll extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_scroll);
         dh = new DatabaseHelper(this);
-        fName = (EditText)findViewById(R.id.fName);
+        fName = (EditText)findViewById(R.id.fNameE);
         //lName = (EditText)findViewById(R.id.lName);
-        mobNo = (EditText)findViewById(R.id.moNum);
-        email = (EditText)findViewById(R.id.email);
+        mobNo = (EditText)findViewById(R.id.moNumE);
+        email = (EditText)findViewById(R.id.emailE);
         pass = (EditText)findViewById(R.id.pass);
         conpass = (EditText)findViewById(R.id.conpass);
         reg = (Button)findViewById(R.id.reg);

@@ -12,6 +12,9 @@
         <item
             android:id="@+id/eventsUp2"
             android:title="Upcoming Events" />
+        <item
+            android:id="@+id/edit2"
+            android:title="Edit Profile" />
     </group>
 
     <item android:title="Communicate">
