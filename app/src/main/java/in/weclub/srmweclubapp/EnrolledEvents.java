@@ -1,5 +1,6 @@
 package in.weclub.srmweclubapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,8 +9,12 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,10 +26,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EnrolledEvents extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private FirebaseUser user = auth.getCurrentUser();
+    private List<String> events = new ArrayList<>();
+
+    private RecyclerView rView;
+    private EventAdapter ea;
+    private RecyclerView.LayoutManager rLM;
+    private List<EventInfo> infoList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +57,20 @@ public class EnrolledEvents extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        rView = (RecyclerView)findViewById(R.id.enrEvents);
+        rLM = new LinearLayoutManager(this);
+        rView.setLayoutManager(rLM);
+
+        ea = new EventAdapter(this,infoList);
+
         FirebaseDatabase ref = FirebaseDatabase.getInstance();
-        DatabaseReference dr = ref.getReference("Users");
+        DatabaseReference dr = ref.getReference("Users").child(user.getUid());
         dr.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                    for(DataSnapshot ds : dataSnapshot.getChildren()){
+                        events.add(ds.child("Registered Events").getValue(String.class));
+                    }
             }
 
             @Override
@@ -55,6 +78,31 @@ public class EnrolledEvents extends AppCompatActivity
 
             }
         });
+
+       DatabaseReference d = ref.getReference("Event");
+       d.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               for(DataSnapshot ds : dataSnapshot.getChildren()){
+                   for(String s : events){
+                       String name = ds.child("Event Name").getValue(String.class);
+                       String spk = ds.child("Speaker").getValue(String.class);
+                       String sTime = ds.child("Start Time").getValue(String.class);
+                       String etime = ds.child("End Time").getValue(String.class);
+                       String type = ds.child("Type").getValue(String.class);
+                       String url = ds.child("Image").getValue(String.class);
+                       infoList.add(new EventInfo(name, spk, sTime, etime, type, url, s ));//, en));
+                   }
+               }
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+
+           }
+       });
+        ea.notifyDataSetChanged();
+        rView.setAdapter(ea);
     }
 
 
@@ -84,6 +132,20 @@ public class EnrolledEvents extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            AlertDialog.Builder a = new AlertDialog.Builder(this,R.style.AlertDialogTheme);
+            a.setTitle(Html.fromHtml("<font color='#000000'>Logout</font>"));
+            a.setMessage(Html.fromHtml("<font color='#0000000'>Are you sure you want to Logout?</font>")).setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    auth.signOut();
+                    startActivity(new Intent(EnrolledEvents.this, LoginActivity1.class));
+                }
+            }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            }).show();
             return true;
         }
 

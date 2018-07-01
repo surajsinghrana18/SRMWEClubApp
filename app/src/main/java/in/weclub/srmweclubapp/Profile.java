@@ -113,6 +113,11 @@ public class Profile extends AppCompatActivity
                 Intent it1 = new Intent(Profile.this, EditProfile.class);
                 startActivity(it1);
                 break;
+
+            case R.id.enrolled2:
+                Intent it2 = new Intent(Profile.this, EnrolledEvents.class);
+                startActivity(it2);
+                break;
         }
 /*
         if (id == R.id.nav_camera) {

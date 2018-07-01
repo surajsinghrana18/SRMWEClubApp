@@ -288,6 +288,11 @@ public class UpcomingEvents extends AppCompatActivity
                 it = new Intent(UpcomingEvents.this, EditProfile.class);
                 startActivity(it);
                 break;
+            case R.id.enrolled1:
+                it = new Intent(UpcomingEvents.this, EnrolledEvents.class);
+                startActivity(it);
+                break;
+
         }
 /*        if (id == R.id.nav_camera) {
             // Handle the camera action
