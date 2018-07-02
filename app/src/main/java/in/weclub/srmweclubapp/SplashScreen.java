@@ -6,7 +6,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class SplashScreen extends AppCompatActivity {
+
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +24,11 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent it = new Intent(SplashScreen.this, LoginActivity1.class);
+                Intent it;
+                if(user != null)
+                     it = new Intent(SplashScreen.this, UpcomingEvents.class);
+                else
+                 it = new Intent(SplashScreen.this, LoginActivity1.class);
                 startActivity(it);
                 finish();
             }

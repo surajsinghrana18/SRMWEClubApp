@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,11 +22,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -35,7 +38,6 @@ public class FindPartner extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView rView;
-    private RecyclerView.Adapter rA;
     private RecyclerView.LayoutManager rLM;
     private List<VendorInfo> vendorInfos = new ArrayList<>();
     private VendorAdapter va;
@@ -68,25 +70,26 @@ public class FindPartner extends AppCompatActivity
         srp = (SwipeRefreshLayout)findViewById(R.id.swipeContainerPartner);
 
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
-        DatabaseReference ref = fd.getReference("Offers");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //vendorInfos.clear();
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    String n = ds.child("Vendor Name").getValue(String.class);
-                    String l = ds.child("Vendor Location").getValue(String.class);
-                    String o = ds.child("Offer").getValue(String.class);
-                    String i = ds.child("Vendor Image").getValue(String.class);
-                    vendorInfos.add(new VendorInfo(n,l,o,i));
-                }
-            }
+        final DatabaseReference ref = fd.getReference("Offers");
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //vendorInfos.clear();
+                        for(DataSnapshot ds : dataSnapshot.getChildren()){
+                            String n = ds.child("Vendor Name").getValue(String.class);
+                            String l = ds.child("Vendor Location").getValue(String.class);
+                            String o = ds.child("Offer").getValue(String.class);
+                            String i = ds.child("Vendor Image").getValue(String.class);
+                            vendorInfos.add(new VendorInfo(n,l,o,i, ds.getKey()));
+                        }
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
+
         va.notifyDataSetChanged();
         rView.setAdapter(va);
         getInfo();
@@ -123,7 +126,7 @@ public class FindPartner extends AppCompatActivity
                     String l = ds.child("Vendor Location").getValue(String.class);
                     String o = ds.child("Offer").getValue(String.class);
                     String i = ds.child("Vendor Image").getValue(String.class);
-                    vendorInfos.add(new VendorInfo(n,l,o,i));
+                    vendorInfos.add(new VendorInfo(n,l,o,i, ds.getKey()));
                 }
             }
 
@@ -192,29 +195,43 @@ public class FindPartner extends AppCompatActivity
         switch(id)
         {
             case R.id.virtCard:
-                Intent it = new Intent(FindPartner.this, Profile.class);
-                startActivity(it);
+                /*Intent it = new Intent(FindPartner.this, Profile.class);
+                startActivity(it);*/
+                newIntent(Profile.class);
                 break;
             case R.id.webLink2:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.weclub.in/"));
                 startActivity(browserIntent);
                 break;
             case R.id.eventsUp2:
-                Intent it1 = new Intent(FindPartner.this, UpcomingEvents.class);
-                startActivity(it1);
+                /*Intent it1 = new Intent(FindPartner.this, UpcomingEvents.class);
+                startActivity(it1);*/
+                newIntent(UpcomingEvents.class);
                 break;
             case R.id.edit2:
-                Intent it2 = new Intent(FindPartner.this, EditProfile.class);
-                startActivity(it2);
+                /*Intent it2 = new Intent(FindPartner.this, EditProfile.class);
+                startActivity(it2);*/
+                newIntent(EditProfile.class);
                 break;
             case R.id.enrolled1:
-                Intent it3 = new Intent(FindPartner.this, EnrolledEvents.class);
-                startActivity(it3);
+                /*Intent it3 = new Intent(FindPartner.this, EnrolledEvents.class);
+                startActivity(it3);*/
+                newIntent(EnrolledEvents.class);
                 break;
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void newIntent(Class c){
+        final Class d = c;
+        new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(FindPartner.this, d.getClass()));
+            }
+        };
     }
 }

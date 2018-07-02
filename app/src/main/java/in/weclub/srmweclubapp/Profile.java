@@ -32,7 +32,6 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 public class Profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private int p;
     private FirebaseUser user;
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -101,8 +100,6 @@ public class Profile extends AppCompatActivity
             case R.id.partners:
                 Intent it = new Intent(Profile.this, FindPartner.class);
                 startActivity(it);
-                Bundle b = new Bundle();
-                b.putInt("Position", p);
                 break;
             case R.id.webLink2:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.weclub.in/"));
@@ -119,21 +116,6 @@ public class Profile extends AppCompatActivity
                 startActivity(it2);
                 break;
         }
-/*
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

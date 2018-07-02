@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -55,6 +57,13 @@ public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.ViewHolder
         holder.vendLoc.setText(v.getVendorLoc());
         holder.offer.setText(v.getOffer());
         Glide.with(context).load(v.getVendorImage()).into(holder.img);
+
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Offer Claimed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

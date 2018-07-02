@@ -64,12 +64,12 @@ public class EnrolledEvents extends AppCompatActivity
         ea = new EventAdapter(this,infoList);
 
         FirebaseDatabase ref = FirebaseDatabase.getInstance();
-        DatabaseReference dr = ref.getReference("Users").child(user.getUid());
+        DatabaseReference dr = ref.getReference("Users").child(user.getUid()).child("Registered Events");
         dr.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
-                        events.add(ds.child("Registered Events").getValue(String.class));
+                        events.add(ds.getKey());
                     }
             }
 
@@ -82,17 +82,15 @@ public class EnrolledEvents extends AppCompatActivity
        DatabaseReference d = ref.getReference("Event");
        d.addValueEventListener(new ValueEventListener() {
            @Override
-           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               for(DataSnapshot ds : dataSnapshot.getChildren()){
-                   for(String s : events){
-                       String name = ds.child("Event Name").getValue(String.class);
-                       String spk = ds.child("Speaker").getValue(String.class);
-                       String sTime = ds.child("Start Time").getValue(String.class);
-                       String etime = ds.child("End Time").getValue(String.class);
-                       String type = ds.child("Type").getValue(String.class);
-                       String url = ds.child("Image").getValue(String.class);
-                       infoList.add(new EventInfo(name, spk, sTime, etime, type, url, s ));//, en));
-                   }
+           public void onDataChange(@NonNull DataSnapshot ds) {
+                   for (String s : events) {
+                           String name = ds.child(s).child("Event Name").getValue(String.class);
+                           String spk = ds.child(s).child("Speaker").getValue(String.class);
+                           String sTime = ds.child(s).child("Start Time").getValue(String.class);
+                           String etime = ds.child(s).child("End Time").getValue(String.class);
+                           String type = ds.child(s).child("Type").getValue(String.class);
+                           String url = ds.child(s).child("Image").getValue(String.class);
+                           infoList.add(new EventInfo(name, spk, sTime, etime, type, url, s));//, en));
                }
            }
 

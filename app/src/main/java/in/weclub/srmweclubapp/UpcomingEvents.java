@@ -77,12 +77,12 @@ public class UpcomingEvents extends AppCompatActivity
         final FirebaseUser u = auth.getCurrentUser();
 
         srp = (SwipeRefreshLayout)findViewById(R.id.swipeContainerEvents);
-        DatabaseReference ref = database.getReference("Event");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    final String id = ds.getKey();
+        final DatabaseReference ref = database.getReference("Event");
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            final String id = ds.getKey();
                     /*DatabaseReference ref1 = database.getReference("Users");
                     ref1.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -98,24 +98,26 @@ public class UpcomingEvents extends AppCompatActivity
 
                         }
                     });*/
-                    String name = ds.child("Event Name").getValue(String.class);
-                    String spk = ds.child("Speaker").getValue(String.class);
-                    String sTime = ds.child("Start Time").getValue(String.class);
-                    String etime = ds.child("End Time").getValue(String.class);
-                    String type = ds.child("Type").getValue(String.class);
-                    String url = ds.child("Image").getValue(String.class);
-                    infoList.add(new EventInfo(name, spk, sTime, etime, type, url, id ));//, en));
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                            String name = ds.child("Event Name").getValue(String.class);
+                            String spk = ds.child("Speaker").getValue(String.class);
+                            String sTime = ds.child("Start Time").getValue(String.class);
+                            String etime = ds.child("End Time").getValue(String.class);
+                            String type = ds.child("Type").getValue(String.class);
+                            String url = ds.child("Image").getValue(String.class);
+                            infoList.add(new EventInfo(name, spk, sTime, etime, type, url, id ));//, en));
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
 
-        ea.notifyDataSetChanged();
-        rView.setAdapter(ea);
-        refresh();
+                ea.notifyDataSetChanged();
+                rView.setAdapter(ea);
+                refresh();
+
+
         //infoList.add(new EventInfo("Java Workshop", "Apan Trikha", "10:00 AM", "Computer Lab 6","EV1001"));
     }
 
