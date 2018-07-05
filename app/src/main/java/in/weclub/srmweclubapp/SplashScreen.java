@@ -34,9 +34,7 @@ public class SplashScreen extends AppCompatActivity {
 
                 Intent it;
                 if(user != null)
-                {
                     it = new Intent(SplashScreen.this, UpcomingEvents.class);
-                }
                 else
                  it = new Intent(SplashScreen.this, LoginActivity1.class);
                 startActivity(it);
