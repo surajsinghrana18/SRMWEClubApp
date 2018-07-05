@@ -34,7 +34,7 @@ public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.ViewHolder
             vendLoc = (TextView)v.findViewById(R.id.vendLoc);
             offer = (TextView)v.findViewById(R.id.offer);
             img = (ImageView)v.findViewById(R.id.vendImg);
-            parentLayout = v.findViewById(R.id.vendRec);
+            parentLayout = v.findViewById(R.id.vend);
         }
     }
 

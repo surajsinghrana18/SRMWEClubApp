@@ -61,7 +61,7 @@ public class FindPartner extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        rView= (RecyclerView)findViewById(R.id.vendRec);
+        rView= (RecyclerView)findViewById(R.id.rec);
         rLM = new LinearLayoutManager(this);
         rView.setLayoutManager(rLM);
 
@@ -190,33 +190,33 @@ public class FindPartner extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Intent it;
 
         switch(id)
         {
             case R.id.virtCard:
-                /*Intent it = new Intent(FindPartner.this, Profile.class);
-                startActivity(it);*/
-                newIntent(Profile.class);
+               it = new Intent(FindPartner.this, Profile.class);
+                startActivity(it);
+                //newIntent(Profile.class);
                 break;
             case R.id.webLink2:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.weclub.in/"));
                 startActivity(browserIntent);
                 break;
             case R.id.eventsUp2:
-                /*Intent it1 = new Intent(FindPartner.this, UpcomingEvents.class);
-                startActivity(it1);*/
-                newIntent(UpcomingEvents.class);
+                it = new Intent(FindPartner.this, UpcomingEvents.class);
+                startActivity(it);
+                //newIntent(UpcomingEvents.class);
                 break;
             case R.id.edit2:
-                /*Intent it2 = new Intent(FindPartner.this, EditProfile.class);
-                startActivity(it2);*/
-                newIntent(EditProfile.class);
+                 it = new Intent(FindPartner.this, EditProfile.class);
+                startActivity(it);
+                //newIntent(EditProfile.class);
                 break;
             case R.id.enrolled1:
-                /*Intent it3 = new Intent(FindPartner.this, EnrolledEvents.class);
-                startActivity(it3);*/
-                newIntent(EnrolledEvents.class);
+                it = new Intent(FindPartner.this, EnrolledEvents.class);
+                startActivity(it);
+               // newIntent(EnrolledEvents.class);
                 break;
 
         }
@@ -225,7 +225,7 @@ public class FindPartner extends AppCompatActivity
         return true;
     }
 
-    private void newIntent(Class c){
+   /* private void newIntent(Class c){
         final Class d = c;
         new Runnable() {
             @Override
@@ -233,5 +233,5 @@ public class FindPartner extends AppCompatActivity
                 startActivity(new Intent(FindPartner.this, d.getClass()));
             }
         };
-    }
+    }*/
 }

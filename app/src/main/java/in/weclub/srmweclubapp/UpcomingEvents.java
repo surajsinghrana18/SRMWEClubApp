@@ -3,6 +3,7 @@ package in.weclub.srmweclubapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -58,7 +59,7 @@ public class UpcomingEvents extends AppCompatActivity
         setContentView(R.layout.activity_upcoming_events);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        rView= (RecyclerView)findViewById(R.id.eventRec);
+        rView= (RecyclerView)findViewById(R.id.rec);
         rLM = new LinearLayoutManager(this);
         rView.setLayoutManager(rLM);
 
@@ -74,45 +75,31 @@ public class UpcomingEvents extends AppCompatActivity
         ea = new EventAdapter(this,infoList);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final FirebaseUser u = auth.getCurrentUser();
 
         srp = (SwipeRefreshLayout)findViewById(R.id.swipeContainerEvents);
-        final DatabaseReference ref = database.getReference("Event");
-                ref.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            final String id = ds.getKey();
-                    /*DatabaseReference ref1 = database.getReference("Users");
-                    ref1.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String g = dataSnapshot.child(u.getUid()).child("Registered Events").child(id)
-                                    .getValue(String.class);
-                            if (g != null)
-                                setEn(g.equals("Registered"));
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });*/
-                            String name = ds.child("Event Name").getValue(String.class);
-                            String spk = ds.child("Speaker").getValue(String.class);
-                            String sTime = ds.child("Start Time").getValue(String.class);
-                            String etime = ds.child("End Time").getValue(String.class);
-                            String type = ds.child("Type").getValue(String.class);
-                            String url = ds.child("Image").getValue(String.class);
-                            infoList.add(new EventInfo(name, spk, sTime, etime, type, url, id ));//, en));
-                        }
+            final DatabaseReference ref = database.getReference("Event");
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        final String id = ds.getKey();
+                        String name = ds.child("Event Name").getValue(String.class);
+                        String spk = ds.child("Speaker").getValue(String.class);
+                        String sTime = ds.child("Start Time").getValue(String.class);
+                        String etime = ds.child("End Time").getValue(String.class);
+                        String type = ds.child("Type").getValue(String.class);
+                        String url = ds.child("Image").getValue(String.class);
+                        infoList.add(new EventInfo(name, spk, sTime, etime, type, url, id));//, en));
                     }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                }
 
-                    }
-                });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
+                }
+            });
+           getInfo();
                 ea.notifyDataSetChanged();
                 rView.setAdapter(ea);
                 refresh();
@@ -121,54 +108,18 @@ public class UpcomingEvents extends AppCompatActivity
         //infoList.add(new EventInfo("Java Workshop", "Apan Trikha", "10:00 AM", "Computer Lab 6","EV1001"));
     }
 
-   /* private void setEn(boolean b){
+   /*private void setEn(boolean b){
         en = b;
     }*/
 
     private void refresh(){
         srp.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                infoList.clear();
-                final FirebaseDatabase database = FirebaseDatabase.getInstance();
-                final FirebaseUser u = auth.getCurrentUser();
-                DatabaseReference ref = database.getReference("Event");
-                ref.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            final String id = ds.getKey();
-                            /*DatabaseReference ref1 = database.getReference("Users");
-                            ref1.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    String g = dataSnapshot.child(u.getUid()).child("Registered Events").child(id)
-                                            .getValue(String.class);
-                                    if (g != null)
-                                        setEn(g.equals("Registered"));
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });*/
-                            String name = ds.child("Event Name").getValue(String.class);
-                            String spk = ds.child("Speaker").getValue(String.class);
-                            String sTime = ds.child("Start Time").getValue(String.class);
-                            String etime = ds.child("End Time").getValue(String.class);
-                            String type = ds.child("Type").getValue(String.class);
-                            String url = ds.child("Image").getValue(String.class);
-                            infoList.add(new EventInfo(name, spk, sTime, etime, type, url, id));// , en));
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-        });
+                                     @Override
+                                     public void onRefresh() {
+                                         infoList.clear();
+                                         getInfo();
+                                     }
+                                 });
         //srp.setRefreshing(false);
     }
 
@@ -314,4 +265,5 @@ public class UpcomingEvents extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
