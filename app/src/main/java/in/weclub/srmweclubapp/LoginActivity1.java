@@ -324,6 +324,7 @@ public class LoginActivity1 extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+
         super.onDestroy();
     }
 

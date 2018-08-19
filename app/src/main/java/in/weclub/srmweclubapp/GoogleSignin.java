@@ -86,7 +86,7 @@ public class GoogleSignin extends LoginActivity1  {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
+                Log.w(TAG, "Error while loging-in.", e);
 
             }
         }
