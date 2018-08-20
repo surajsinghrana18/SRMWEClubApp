@@ -113,6 +113,16 @@ public class EventDescription extends AppCompatActivity {
                         //b.getBackground().setColorFilter(Color.rgb(0,130,50), PorterDuff.Mode.MULTIPLY);
                     } else {
                         changeCol();
+                        b.setOnClickListener(new View.OnClickListener() {
+                            final String f = i;
+
+                            @Override
+                            public void onClick(View view) {
+                                Intent i = new Intent(EventDescription.this, ClaimReward.class);
+                                i.putExtra("UID", getIntent().getExtras().getString("Event ID"));
+                                i.putExtra("Title", "Confirm Registration");
+                            }
+                        });
                         //b.getBackground().setColorFilter(Color.rgb(0,130,50), PorterDuff.Mode.MULTIPLY);
                     }
                 }
