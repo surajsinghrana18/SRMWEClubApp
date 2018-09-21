@@ -1,6 +1,7 @@
 package in.weclub.srmweclubapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
@@ -113,6 +114,15 @@ public class EventDescription extends AppCompatActivity {
                         //b.getBackground().setColorFilter(Color.rgb(0,130,50), PorterDuff.Mode.MULTIPLY);
                     } else {
                         changeCol();
+                        b.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent it = new Intent(EventDescription.this, ClaimReward.class);
+                                it.putExtra("UID", getIntent().getExtras().getString("Event ID"));
+                                it.putExtra("Title", "Verify Registration");
+                                startActivity(it);
+                            }
+                        });
                         //b.getBackground().setColorFilter(Color.rgb(0,130,50), PorterDuff.Mode.MULTIPLY);
                     }
                 }
@@ -128,7 +138,7 @@ public class EventDescription extends AppCompatActivity {
     private void changeCol()
     {
         b.setBackgroundColor(Color.rgb(0,100,13));
-        b.setText("Registered");
+        b.setText("Claim");
     }
 
 }
