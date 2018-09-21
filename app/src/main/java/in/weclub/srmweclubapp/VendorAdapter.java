@@ -1,6 +1,7 @@
 package in.weclub.srmweclubapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,17 +52,22 @@ public class VendorAdapter extends RecyclerView.Adapter<VendorAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder( @NonNull VendorAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final VendorAdapter.ViewHolder holder, int position) {
         VendorInfo v = vendors.get(position);
         holder.vendName.setText(v.getVendorName());
         holder.vendLoc.setText(v.getVendorLoc());
-        holder.offer.setText(v.getOffer());
+        final String s = v.getOffer();
+        holder.vendLoc.setText(s);
         Glide.with(context).load(v.getVendorImage()).into(holder.img);
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Offer Claimed", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(context, ClaimReward.class);
+                i.putExtra("UID", s);
+                i.putExtra("Title","Claim Offer");
+                context.startActivity(i);
+                //Toast.makeText(context, "Offer Claimed", Toast.LENGTH_SHORT).show();
             }
         });
     }

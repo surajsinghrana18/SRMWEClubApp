@@ -61,6 +61,7 @@ public class FindPartner extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        setTitle("Offers");
         rView= (RecyclerView)findViewById(R.id.rec);
         rLM = new LinearLayoutManager(this);
         rView.setLayoutManager(rLM);
