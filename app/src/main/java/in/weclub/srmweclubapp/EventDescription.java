@@ -121,6 +121,7 @@ public class EventDescription extends AppCompatActivity {
                                 it.putExtra("UID", getIntent().getExtras().getString("Event ID"));
                                 it.putExtra("Title", "Verify Registration");
                                 startActivity(it);
+                                //Confirming Registration.
                             }
                         });
                         //b.getBackground().setColorFilter(Color.rgb(0,130,50), PorterDuff.Mode.MULTIPLY);
