@@ -84,7 +84,7 @@
             android:name=".EnrolledEvents"
             android:label="@string/title_activity_enrolled_events"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ClaimReward"/>
+        <activity android:name=".ClaimReward" />
     </application>
 
 </manifest>

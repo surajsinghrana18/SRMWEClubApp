@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.google.firebase.auth.FirebaseAuth;
@@ -196,27 +197,23 @@ public class FindPartner extends AppCompatActivity
         switch(id)
         {
             case R.id.virtCard:
-               it = new Intent(FindPartner.this, Profile.class);
-                startActivity(it);
+                startActivity(new Intent(FindPartner.this, Profile.class));
                 //newIntent(Profile.class);
                 break;
             case R.id.webLink2:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.weclub.in/"));
-                startActivity(browserIntent);
+                Toast.makeText(this, "In Progress...", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(FindPartner.this, WebNav.class));
                 break;
             case R.id.eventsUp2:
-                it = new Intent(FindPartner.this, UpcomingEvents.class);
-                startActivity(it);
+                startActivity(new Intent(FindPartner.this, UpcomingEvents.class));
                 //newIntent(UpcomingEvents.class);
                 break;
             case R.id.edit2:
-                 it = new Intent(FindPartner.this, EditProfile.class);
-                startActivity(it);
+                startActivity(new Intent(FindPartner.this, EditProfile.class));
                 //newIntent(EditProfile.class);
                 break;
             case R.id.enrolled1:
-                it = new Intent(FindPartner.this, EnrolledEvents.class);
-                startActivity(it);
+                startActivity(new Intent(FindPartner.this, EnrolledEvents.class));
                // newIntent(EnrolledEvents.class);
                 break;
 

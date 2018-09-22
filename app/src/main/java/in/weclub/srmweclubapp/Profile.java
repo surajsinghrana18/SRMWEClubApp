@@ -98,22 +98,23 @@ public class Profile extends AppCompatActivity
         switch (id)
         {
             case R.id.partners:
-                Intent it = new Intent(Profile.this, FindPartner.class);
-                startActivity(it);
+                startActivity(new Intent(Profile.this, FindPartner.class));
                 break;
             case R.id.webLink2:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.weclub.in/"));
-                startActivity(browserIntent);
+                Toast.makeText(this, "In Progress...", Toast.LENGTH_SHORT).show();
+               // startActivity(new Intent(Profile.this, WebNav.class));
                 break;
 
             case R.id.edit:
-                Intent it1 = new Intent(Profile.this, EditProfile.class);
-                startActivity(it1);
+                startActivity(new Intent(Profile.this, EditProfile.class));
                 break;
 
             case R.id.enrolled2:
-                Intent it2 = new Intent(Profile.this, EnrolledEvents.class);
-                startActivity(it2);
+                startActivity(new Intent(Profile.this, EnrolledEvents.class));
+                break;
+
+            case R.id.eventsUp:
+                startActivity(new Intent(Profile.this, UpcomingEvents.class));
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
