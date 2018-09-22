@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_background"
+    android:background = "@drawable/background_blue"
     tools:context="in.weclub.srmweclubapp.SignUpScroll">
-
 
     <View
         android:id="@+id/myRectangleView"
@@ -21,56 +20,59 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.295" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/userbutton"
         android:layout_width="87dp"
         android:layout_height="94dp"
         android:layout_centerHorizontal="true"
-        android:background="@color/fui_transparent"
         android:layout_centerVertical="true"
         android:layout_marginStart="112dp"
 
         android:layout_marginTop="12dp"
-        android:src="@drawable/usersymbol"
+        android:src="@drawable/uploadpic"
         android:text="Profile"
         android:textColor="#f8fdf9"
         app:layout_constraintStart_toStartOf="@+id/myRectangleView"
         app:layout_constraintTop_toTopOf="@+id/myRectangleView" />
 
     <EditText
-        android:id="@+id/fNameE"
+        android:id="@+id/fName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="108dp"
-        android:backgroundTint="#e84555"
+        android:backgroundTint="@android:color/white"
+        android:textCursorDrawable="@null"
         android:ems="10"
         android:hint="First Name"
+        android:textColor="@android:color/white"
         android:inputType="textPersonName"
-        android:textColorHint="#b11429"
+        android:textColorHint="@android:color/black"
         app:layout_constraintEnd_toEndOf="@+id/myRectangleView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/myRectangleView"
         app:layout_constraintTop_toTopOf="@+id/myRectangleView" />
 
     <EditText
-        android:id="@+id/emailE"
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="60dp"
-        android:backgroundTint="#e84555"
+        android:backgroundTint="@android:color/white"
         android:ems="10"
         android:hint="E-mail"
+        android:textCursorDrawable="@null"
+        android:textColor="@android:color/white"
         android:inputType="textEmailAddress"
-        android:textColorHint="#b11429"
+        android:textColorHint="@android:color/black"
         app:layout_constraintEnd_toEndOf="@+id/myRectangleView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/myRectangleView"
-        app:layout_constraintTop_toBottomOf="@+id/fNameE" />
+        app:layout_constraintTop_toBottomOf="@+id/fName" />
 
     <EditText
         android:id="@+id/pass"
@@ -78,49 +80,64 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="60dp"
-        android:backgroundTint="#e84555"
+        android:backgroundTint="@android:color/white"
         android:ems="10"
         android:hint="Password"
+        android:textCursorDrawable="@null"
+        android:textColor="@android:color/white"
         android:inputType="textPassword"
-        android:textColorHint="#b11429"
+        android:textColorHint="@android:color/black"
         app:layout_constraintEnd_toEndOf="@+id/myRectangleView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/myRectangleView"
-        app:layout_constraintTop_toBottomOf="@+id/moNumE" />
+        app:layout_constraintTop_toBottomOf="@+id/moNum" />
 
-    <EditText
-        android:id="@+id/conpass"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="60dp"
-        android:backgroundTint="#e84555"
-        android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        android:textColorHint="#b11429"
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="285dp"
+        android:layout_height="64dp"
+        android:backgroundTint="@android:color/white"
+        android:textColorHint="@android:color/black"
         app:layout_constraintEnd_toEndOf="@+id/myRectangleView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/myRectangleView"
-        app:layout_constraintTop_toBottomOf="@+id/pass" />
+        app:layout_constraintTop_toBottomOf="@+id/pass"
+        app:passwordToggleEnabled="true">
 
+        <EditText
+            android:id="@+id/conpass"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="60dp"
+            android:backgroundTint="@android:color/white"
+            android:ems="10"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/black"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="@+id/myRectangleView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/myRectangleView"
+            app:layout_constraintTop_toBottomOf="@+id/pass" />
+    </android.support.design.widget.TextInputLayout>
     <EditText
-        android:id="@+id/moNumE"
+        android:id="@+id/moNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="60dp"
-        android:backgroundTint="#e84555"
+        android:backgroundTint="@android:color/white"
         android:ems="10"
         android:hint="Mobile Number"
+        android:textCursorDrawable="@null"
+        android:textColor="@android:color/white"
         android:inputType="number"
-        android:textColorHint="#b11429"
+        android:textColorHint="@android:color/black"
         app:layout_constraintEnd_toEndOf="@+id/myRectangleView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/myRectangleView"
-        app:layout_constraintTop_toBottomOf="@+id/emailE" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
         android:id="@+id/reg"
@@ -138,7 +155,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myRectangleView"
-        app:layout_constraintVertical_bias="0.407" />
+        app:layout_constraintVertical_bias="0.508" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="37dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_arrow_back_black_24dp"
+        app:layout_constraintEnd_toStartOf="@+id/userbutton"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_marginBottom="152dp"
+        android:layout_marginEnd="212dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/cairo"
+        android:text="back to login"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/userbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </android.support.constraint.ConstraintLayout>
