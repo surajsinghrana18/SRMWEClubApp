@@ -26,7 +26,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpScroll extends AppCompatActivity {
 
-    private EditText fName, lName, mobNo, email, pass, conpass;
+    private EditText fName;
+    private EditText lName;
+    private EditText mobNo;
+    private EditText email;
+    private EditText pass;
+    private EditText conpass;
+    private Button backbtn;
     private Button reg;
     DatabaseHelper dh;
     final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -43,6 +49,14 @@ public class SignUpScroll extends AppCompatActivity {
         pass = (EditText)findViewById(R.id.pass);
         conpass = (EditText)findViewById(R.id.conpass);
         reg = (Button)findViewById(R.id.reg);
+        backbtn= (Button) findViewById(R.id.back_button);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             Intent i = new Intent(SignUpScroll.this,LoginActivity1.class);
+             startActivity(i);
+            }
+        });
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,7 +113,7 @@ public class SignUpScroll extends AppCompatActivity {
                                         d.child("Mobile number: ").setValue(m);
                                         d.child("UID: ").setValue(f1);
                                         Toast.makeText(SignUpScroll.this, "Registration successful", Toast.LENGTH_LONG).show();
-                                        Intent i = new Intent(SignUpScroll.this, Profile.class);
+                                        Intent i = new Intent(SignUpScroll.this, UpcomingEvents.class);
                                         startActivity(i);
                                     }
                                     else
@@ -112,8 +126,10 @@ public class SignUpScroll extends AppCompatActivity {
 
 
                 }
+
                 else
                     Toast.makeText(SignUpScroll.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+
             }
         });
 

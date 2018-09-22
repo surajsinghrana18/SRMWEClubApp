@@ -107,11 +107,16 @@ public class LoginActivity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login1);
         firebaseAuth = FirebaseAuth.getInstance();
+
+        //google login
         signInButton = (SignInButton) findViewById(R.id.sign_in_buttongoogle);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+        //Creating google API Client
+
+
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         signInButton.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -119,6 +124,8 @@ public class LoginActivity1 extends AppCompatActivity {
                                             signIn();
                                             }
                                         });
+
+
         //for facebook
         LoginButton loginButton = (LoginButton)findViewById(R.id.login_buttonfb);
         mCallbackManager = CallbackManager.Factory.create();
@@ -145,6 +152,7 @@ public class LoginActivity1 extends AppCompatActivity {
                     public void onError(FacebookException error) {
                         Log.d(TAG, "facebook:onError", error);
                         // ...
+
                     }
                 });
             }
@@ -158,6 +166,8 @@ public class LoginActivity1 extends AppCompatActivity {
         });
             login();
     }
+
+
     public void login() {
         email = (EditText) findViewById(R.id.moNo);
         pass = (EditText) findViewById(R.id.pass3);
