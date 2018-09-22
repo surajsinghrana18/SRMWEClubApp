@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "159881279338",
+    "firebase_url": "https://srmwe-club-1.firebaseio.com",
+    "project_id": "srmwe-club-1",
+    "storage_bucket": "srmwe-club-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159881279338:android:8a688285e07b0db5",
+        "android_client_info": {
+          "package_name": "in.weclub.srmweclubapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "159881279338-6tomd7g47mk6pesa300faa901nu24rv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.weclub.srmweclubapp",
+            "certificate_hash": "ee9d9911c1396abb5bf857d048f3f8a03a8946ee"
+          }
+        },
+        {
+          "client_id": "159881279338-uv703p4tr6717blv1d4dgd6m6jtk1v4d.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "159881279338-uv703p4tr6717blv1d4dgd6m6jtk1v4d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIpbziB7X1OATJniWFkmTorqdOEKQ0QtI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "159881279338-uv703p4tr6717blv1d4dgd6m6jtk1v4d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

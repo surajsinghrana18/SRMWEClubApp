@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">SRMWEClubApp</string>
+    <string name="title_activity_login">Welcome</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="sign_in_prompt">Sign In to begin</string>
+    <string name="take_photo_prompt">Upload a Photo</string>
+
+    <string name="action_settings">Settings</string>
+
+    //adding facebook strings
+    <string name="facebook_app_id">1710511879045220</string>
+    <string name="fb_login_protocol_scheme">fb1710511879045220</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_find_partner">Find Partner</string>
+    <string name="title_activity_upcoming_events">Upcoming Events</string>
+    <string name="title_activity_enrolled_events">Enrolled Events</string>
+</resources>
