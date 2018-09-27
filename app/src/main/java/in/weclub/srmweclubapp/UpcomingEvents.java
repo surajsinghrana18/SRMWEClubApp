@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -120,7 +121,7 @@ public class UpcomingEvents extends AppCompatActivity
                                          getInfo();
                                      }
                                  });
-        //srp.setRefreshing(false);
+        //srp.setRefreshing(!(srp.isRefreshing()));
     }
 
     @Override
@@ -133,41 +134,42 @@ public class UpcomingEvents extends AppCompatActivity
     private void getInfo(){
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Event");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    DatabaseReference ref1 = database.getReference("Users");
-                    final String id = ds.getKey();
-                    ref1.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            FirebaseUser u = auth.getCurrentUser();
-                            String g = dataSnapshot.child(u.getUid()).child("Registered Events").child(id)
-                                    .getValue(String.class);
-                            if (g != null) {
-                                for (EventInfo i : infoList) {
-                                    i.setEnrolled(g.equals("Registered"));
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            DatabaseReference ref1 = database.getReference("Users");
+                            final String id = ds.getKey();
+                            ref1.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    FirebaseUser u = auth.getCurrentUser();
+                                    String g = dataSnapshot.child(u.getUid()).child("Registered Events").child(id)
+                                            .getValue(String.class);
+                                    if (g != null) {
+                                        for (EventInfo i : infoList) {
+                                            i.setEnrolled(g.equals("Registered"));
+                                        }
+                                    }
                                 }
-                            }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                            ea.notifyDataSetChanged();
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
-                    ea.notifyDataSetChanged();
-                }
-            }
+                    }
+                });
+                ea.notifyDataSetChanged();
+                rView.setAdapter(ea);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        ea.notifyDataSetChanged();
-        rView.setAdapter(ea);
     }
 
     @Override
@@ -221,29 +223,25 @@ public class UpcomingEvents extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Intent it;
-
         switch(id)
         {
             case R.id.partners2:
-                it = new Intent(UpcomingEvents.this, FindPartner.class);
-                startActivity(it);
+                Intent i = new Intent(UpcomingEvents.this, FindPartner.class);
+                i.putExtra("Vendor Second", true);
+                startActivity(i);
                 break;
             case R.id.webLink3:
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.weclub.in/"));
-                startActivity(browserIntent);
+                Toast.makeText(this, "In Progress...", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(UpcomingEvents.this, WebNav.class));
                 break;
             case R.id.virtCard2:
-                it = new Intent(UpcomingEvents.this, Profile.class);
-                startActivity(it);
+                startActivity(new Intent(UpcomingEvents.this, Profile.class));
                 break;
             case R.id.edit3:
-                it = new Intent(UpcomingEvents.this, EditProfile.class);
-                startActivity(it);
+                startActivity(new Intent(UpcomingEvents.this, EditProfile.class));
                 break;
             case R.id.enrolled1:
-                it = new Intent(UpcomingEvents.this, EnrolledEvents.class);
-                startActivity(it);
+                startActivity(new Intent(UpcomingEvents.this, EnrolledEvents.class));
                 break;
 
         }

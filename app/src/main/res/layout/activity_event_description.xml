@@ -40,6 +40,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/verifyReg"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/button_ui_bg"
+                android:backgroundTint="@color/VerifyButton"
+                android:text="Verify Resitration"
+                android:textColor="@color/cardview_light_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent" />
+
             <TextView
                 android:id="@+id/txtAbt"
                 android:layout_width="match_parent"
@@ -92,7 +106,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:background="@color/colorPrimary"
+                android:background="@drawable/button_ui_bg"
+                android:backgroundTint="@color/cardview_light_background"
                 android:text="Register"
                 android:textColor="@color/cardview_light_background"
                 app:layout_constraintBottom_toBottomOf="parent"
